@@ -22,7 +22,8 @@ class UIController {
       // Winner screen elements
       winnerScreen: '#winner-screen',
       winnerTeam: '#winner-team',
-      restartButton: '#restart-button'
+      restartButton: '#restart-button',
+      hornEmoji: '#horn-emoji'
     };
     
     this.initElements();
@@ -32,6 +33,10 @@ class UIController {
     this.restartGame = this.restartGame.bind(this);
     this.showCellDialog = this.showCellDialog.bind(this);
     this.hideCellDialog = this.hideCellDialog.bind(this);
+    this.playAirHorn = this.playAirHorn.bind(this);
+    
+    // Initialize the air horn audio
+    this.airHornSound = new Audio('assets/sound/air-horn-273892.mp3');
     
     // Check for saved team ID and auto-start game if available
     this.checkForSavedTeam();
@@ -243,6 +248,9 @@ class UIController {
     this.elements.winnerTeam.textContent = teamName;
     this.elements.winnerScreen.classList.add('active');
     
+    // Play air horn sound when winner screen appears
+    this.playAirHorn();
+    
     // Ensure restart button is properly set up each time the winner screen shows
     const restartButton = document.getElementById('restart-button');
     if (restartButton) {
@@ -250,6 +258,15 @@ class UIController {
       restartButton.replaceWith(restartButton.cloneNode(true));
       // Add the listener again
       document.getElementById('restart-button').addEventListener('click', this.restartGame);
+    }
+    
+    // Set up horn emoji
+    const hornEmoji = document.getElementById('horn-emoji');
+    if (hornEmoji) {
+      // Remove any existing listeners to avoid duplicates
+      hornEmoji.replaceWith(hornEmoji.cloneNode(true));
+      // Add the listener again
+      document.getElementById('horn-emoji').addEventListener('click', this.playAirHorn);
     }
     
     if (typeof window.showWinningConfetti === 'function') {
@@ -437,6 +454,38 @@ class UIController {
     
     // Re-enable scrolling
     document.body.style.overflow = '';
+  }
+  
+  /**
+   * Play the air horn sound effect
+   */
+  playAirHorn() {
+    // Wenn der Sound noch abgespielt wird, zuerst stoppen und neu starten
+    this.airHornSound.pause();
+    this.airHornSound.currentTime = 0;
+    
+    // Ton abspielen
+    this.airHornSound.play()
+      .catch(error => {
+        console.error('Error playing air horn sound:', error);
+      });
+    
+    // Emoji-Animation aktivieren
+    const hornEmoji = document.getElementById('horn-emoji');
+    if (hornEmoji) {
+      // Bestehende Animation entfernen, falls vorhanden
+      hornEmoji.classList.remove('playing');
+      
+      // Timeout verwenden, um sicherzustellen, dass die Animation neu gestartet wird
+      setTimeout(() => {
+        hornEmoji.classList.add('playing');
+      }, 10);
+      
+      // Animation nach Ende entfernen
+      setTimeout(() => {
+        hornEmoji.classList.remove('playing');
+      }, 500);
+    }
   }
 }
 

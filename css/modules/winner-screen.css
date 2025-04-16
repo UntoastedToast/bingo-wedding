@@ -203,6 +203,94 @@
   right: -10px;
 }
 
+/* Container für Button und Horn-Emoji */
+.button-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px; /* Erhöhter margin-top um früheren Button-margin zu berücksichtigen */
+  position: relative;
+  gap: 15px; /* Gleichmäßiger Abstand zwischen den Buttons */
+}
+
+/* Container für Horn-Emoji und Hand */
+.horn-container {
+  position: relative;
+  /* Margin entfernt, stattdessen wird der Abstand mit gap im button-container gesteuert */
+}
+
+/* Styles für das Horn-Emoji mit Button-Hintergrund */
+.horn-emoji {
+  font-size: 1.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e74c3c; /* Rote Farbe für den Horn-Button */
+  color: white;
+  border-radius: var(--border-radius);
+  padding: 7.5px 15px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Gleicher Schatten wie restart-button */
+  border: 2px solid transparent;
+  font-family: 'Source Sans Pro', sans-serif;
+  /* Präzisere Padding-Werte für exakte Höhenanpassung */
+}
+
+.horn-emoji:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  background-color: #c0392b;
+}
+
+.horn-emoji:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Animierte zeigende Hand */
+.pointing-hand {
+  position: absolute;
+  font-size: 1.5rem;
+  bottom: -5px;
+  right: -10px;
+  animation: pointing 1.5s ease-in-out infinite;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.1));
+  z-index: 1001;
+}
+
+/* Animation für die Hand */
+@keyframes pointing {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-5px) scale(1.1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.8;
+  }
+}
+
+/* Animation für das schwebende Emoji - entfernt, da das Air Horn statisch sein soll */
+
+/* Animation beim Klicken auf das Emoji */
+.horn-emoji.playing {
+  animation: horn-playing 0.5s ease-out;
+}
+
+@keyframes horn-playing {
+  0% { transform: translateY(0); }
+  25% { transform: translateY(-5px); background-color: #e74c3c; }
+  50% { transform: translateY(-3px); background-color: #c0392b; }
+  75% { transform: translateY(-5px); background-color: #e74c3c; }
+  100% { transform: translateY(0); }
+}
+
 .restart-button {
   background-color: white;
   color: var(--accent-color);
@@ -213,7 +301,7 @@
   cursor: pointer;
   transition: var(--transition);
   font-weight: bold;
-  margin-top: 40px;
+  /* margin-top entfernt, da jetzt im Container */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   position: relative;
   z-index: 1001; /* Highest z-index to ensure clickability */
@@ -222,6 +310,7 @@
   border: 2px solid transparent;
   overflow: hidden;
   animation: button-appear 0.5s 0.3s backwards;
+  font-family: 'Source Sans Pro', sans-serif;
 }
 
 @keyframes button-appear {
