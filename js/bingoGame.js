@@ -30,6 +30,13 @@ class BingoGame {
       
       this.tasks = card.tasks;
       this.markedTasks = dataService.loadGameState(teamId);
+      
+      // Stelle sicher, dass das Freifeld aus config immer markiert ist
+      const freespacePosition = config.freeSpace.position;
+      if (!this.markedTasks.includes(freespacePosition)) {
+        this.markedTasks.push(freespacePosition);
+      }
+      
       this.hasWon = dataService.loadWinState(teamId);
       this.checkForWin();
       return true;
@@ -173,6 +180,11 @@ class BingoGame {
     
     this.tasks = [];
     this.markedTasks = [];
+    
+    // Füge das Freifeld hinzu, auch beim Zurücksetzen
+    const freespacePosition = config.freeSpace.position;
+    this.markedTasks.push(freespacePosition);
+    
     this.hasWon = false;
     
     if (teamId) {
