@@ -38,6 +38,10 @@ class UIController {
     // Initialize the air horn audio
     this.airHornSound = new Audio('assets/sound/air-horn-273892.mp3');
     
+    // Konfetti Cooldown
+    this.confettiCooldown = false;
+    this.confettiCooldownDuration = 2000; // 2 Sekunden Cooldown
+    
     // Check for saved team ID and auto-start game if available
     this.checkForSavedTeam();
     
@@ -248,8 +252,8 @@ class UIController {
     this.elements.winnerTeam.textContent = teamName;
     this.elements.winnerScreen.classList.add('active');
     
-    // Play air horn sound when winner screen appears
-    this.playAirHorn();
+    // Nur den Air Horn Sound abspielen, ohne Animation
+    this.playAirHornSound();
     
     // Ensure restart button is properly set up each time the winner screen shows
     const restartButton = document.getElementById('restart-button');
@@ -457,9 +461,9 @@ class UIController {
   }
   
   /**
-   * Play the air horn sound effect
+   * Play just the air horn sound without animation
    */
-  playAirHorn() {
+  playAirHornSound() {
     // Wenn der Sound noch abgespielt wird, zuerst stoppen und neu starten
     this.airHornSound.pause();
     this.airHornSound.currentTime = 0;
@@ -469,8 +473,35 @@ class UIController {
       .catch(error => {
         console.error('Error playing air horn sound:', error);
       });
+  }
+  
+  /**
+   * Play the air horn sound effect with animation
+   */
+  playAirHorn() {
+    // Sound abspielen mit der Basisfunktion
+    this.playAirHornSound();
+      
+    // Konfetti nur anzeigen, wenn kein Cooldown aktiv ist
+    if (typeof window.showWinningConfetti === 'function' && !this.confettiCooldown) {
+      // Vor dem Erzeugen neuer Konfetti das alte entfernen (falls vorhanden)
+      if (typeof window.clearConfetti === 'function') {
+        window.clearConfetti();
+      }
+      
+      // Konfetti anzeigen
+      window.showWinningConfetti();
+      
+      // Cooldown aktivieren
+      this.confettiCooldown = true;
+      
+      // Cooldown nach X Sekunden wieder deaktivieren
+      setTimeout(() => {
+        this.confettiCooldown = false;
+      }, this.confettiCooldownDuration);
+    }
     
-    // Emoji-Animation aktivieren
+    // Button-Animation aktivieren
     const hornEmoji = document.getElementById('horn-emoji');
     if (hornEmoji) {
       // Bestehende Animation entfernen, falls vorhanden
@@ -485,6 +516,77 @@ class UIController {
       setTimeout(() => {
         hornEmoji.classList.remove('playing');
       }, 500);
+    }
+    
+    // Stoppe eventuell bereits laufende Animationen
+    this.stopHornAnimation();
+    
+    // Zentrale Air Horn Animation aktivieren
+    const animationContainer = document.getElementById('horn-animation-container');
+    const animatedHorn = document.getElementById('animated-horn');
+    const soundWaves = document.querySelectorAll('.sound-wave');
+    
+    console.log('Animation starten:', {
+      container: animationContainer,
+      horn: animatedHorn,
+      waves: soundWaves.length
+    });
+    
+    if (animationContainer && animatedHorn && soundWaves.length > 0) {
+      // Animation-Container einblenden
+      animationContainer.classList.add('active');
+      
+      // Air Horn einblenden und animieren
+      setTimeout(() => {
+        animatedHorn.classList.add('active');
+        console.log('Horn aktiviert');
+      }, 50);
+      
+      // Schallwellen nacheinander starten
+      soundWaves.forEach((wave, index) => {
+        setTimeout(() => {
+          wave.classList.add('active');
+          console.log(`Welle ${index + 1} aktiviert`);
+        }, 150 + (index * 100));
+      });
+      
+      // Animation nach Abschluss ausblenden
+      this.hornAnimationTimeout = setTimeout(() => {
+        animatedHorn.classList.remove('active');
+        this.hornAnimationCleanupTimeout = setTimeout(() => {
+          animationContainer.classList.remove('active');
+          // Alle Schallwellen zurücksetzen
+          soundWaves.forEach(wave => {
+            wave.classList.remove('active');
+          });
+        }, 500);
+      }, 2000);
+    }
+  }
+  
+  /**
+   * Stoppt laufende Horn-Animationen
+   */
+  stopHornAnimation() {
+    if (this.hornAnimationTimeout) {
+      clearTimeout(this.hornAnimationTimeout);
+      this.hornAnimationTimeout = null;
+    }
+    
+    if (this.hornAnimationCleanupTimeout) {
+      clearTimeout(this.hornAnimationCleanupTimeout);
+      this.hornAnimationCleanupTimeout = null;
+    }
+    
+    // Zurücksetzen der Animation-Elemente
+    const animationContainer = document.getElementById('horn-animation-container');
+    const animatedHorn = document.getElementById('animated-horn');
+    const soundWaves = document.querySelectorAll('.sound-wave');
+    
+    if (animationContainer) animationContainer.classList.remove('active');
+    if (animatedHorn) animatedHorn.classList.remove('active');
+    if (soundWaves.length > 0) {
+      soundWaves.forEach(wave => wave.classList.remove('active'));
     }
   }
 }

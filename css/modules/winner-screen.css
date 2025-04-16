@@ -291,6 +291,100 @@
   100% { transform: translateY(0); }
 }
 
+/* Air Horn Animation Container */
+.horn-animation-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2000; /* Über allem anderen */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s;
+  background-color: rgba(0, 0, 0, 0.7); /* Verdunkelter Hintergrund */
+}
+
+.horn-animation-container.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.horn-center {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.animated-horn {
+  font-size: 10rem; /* Deutlich größer */
+  opacity: 0;
+  transform: scale(0.5);
+  transition: all 0.3s;
+  z-index: 2001;
+  color: #e74c3c; /* Gleiche Farbe wie der Button für Konsistenz */
+  text-shadow: 0 0 25px rgba(0, 0, 0, 0.4);
+}
+
+.animated-horn.active {
+  opacity: 1;
+  transform: scale(1);
+  animation: horn-animate 0.5s ease-out;
+}
+
+@keyframes horn-animate {
+  0% { transform: scale(0.5) rotate(0deg); }
+  20% { transform: scale(1.2) rotate(-15deg); }
+  40% { transform: scale(0.9) rotate(10deg); }
+  60% { transform: scale(1.1) rotate(-5deg); }
+  80% { transform: scale(0.95) rotate(2deg); }
+  100% { transform: scale(1) rotate(0deg); }
+}
+
+/* Schallwellen Stile */
+.sound-wave {
+  position: absolute;
+  border: 6px solid #e74c3c;
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 2000;
+  box-shadow: 0 0 15px rgba(231, 76, 60, 0.7);
+}
+
+.sound-wave.active {
+  animation: sound-wave-animation 1s ease-out forwards;
+}
+
+.wave1.active {
+  animation-delay: 0.1s;
+}
+
+.wave2.active {
+  animation-delay: 0.2s;
+}
+
+.wave3.active {
+  animation-delay: 0.3s;
+}
+
+@keyframes sound-wave-animation {
+  0% {
+    width: 100px;
+    height: 100px;
+    opacity: 0.9;
+  }
+  100% {
+    width: 500px;
+    height: 500px;
+    opacity: 0;
+  }
+}
+
 .restart-button {
   background-color: white;
   color: var(--accent-color);

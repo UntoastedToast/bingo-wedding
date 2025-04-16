@@ -83,6 +83,8 @@
             
             <!-- Confetti will appear in between -->
             
+
+            
             <!-- Content layer (front) -->
             <div class="winner-content">
                 <div class="winner-badge">
@@ -112,5 +114,15 @@
             }
         });
     </script>
+    
+    <!-- Horn Animation Layer (außerhalb aller anderen Container für maximale Z-Index-Wirkung) -->
+    <div id="horn-animation-container" class="horn-animation-container">
+        <div class="horn-center">
+            <div id="animated-horn" class="animated-horn">📢</div>
+            <div class="sound-wave wave1"></div>
+            <div class="sound-wave wave2"></div>
+            <div class="sound-wave wave3"></div>
+        </div>
+    </div>
 </body>
 </html>
