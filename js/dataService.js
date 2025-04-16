@@ -45,9 +45,11 @@ class DataService {
    * Save game state to local storage
    * @param {number} teamId - The team ID
    * @param {Array} markedTasks - Array of marked task indices
+   * @param {boolean} hasWon - Whether the team has won
    */
-  saveGameState(teamId, markedTasks) {
+  saveGameState(teamId, markedTasks, hasWon = false) {
     localStorage.setItem(`bingoState_${teamId}`, JSON.stringify(markedTasks));
+    localStorage.setItem(`bingoWin_${teamId}`, JSON.stringify(hasWon));
   }
 
   /**
@@ -61,11 +63,39 @@ class DataService {
   }
 
   /**
+   * Load win state from local storage
+   * @param {number} teamId - The team ID
+   * @returns {boolean} Whether the team has won
+   */
+  loadWinState(teamId) {
+    const savedWinState = localStorage.getItem(`bingoWin_${teamId}`);
+    return savedWinState ? JSON.parse(savedWinState) : false;
+  }
+
+  /**
    * Clear game state for a team
    * @param {number} teamId - The team ID
    */
   clearGameState(teamId) {
     localStorage.removeItem(`bingoState_${teamId}`);
+    localStorage.removeItem(`bingoWin_${teamId}`);
+  }
+  
+  /**
+   * Save the last selected team ID
+   * @param {number} teamId - The team ID
+   */
+  saveLastTeamId(teamId) {
+    localStorage.setItem('lastSelectedTeam', teamId.toString());
+  }
+  
+  /**
+   * Get the last selected team ID
+   * @returns {number|null} The last selected team ID or null if not found
+   */
+  getLastTeamId() {
+    const lastTeam = localStorage.getItem('lastSelectedTeam');
+    return lastTeam ? parseInt(lastTeam) : null;
   }
 }
 

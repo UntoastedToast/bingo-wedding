@@ -30,6 +30,9 @@ class UIController {
     
     // Bind methods to ensure correct 'this' context
     this.restartGame = this.restartGame.bind(this);
+    
+    // Check for saved team ID and auto-start game if available
+    this.checkForSavedTeam();
   }
 
   /**
@@ -106,9 +109,28 @@ class UIController {
   }
 
   /**
-   * Start the game with the selected team
+   * Check for saved team ID and auto-start game if available
    */
-  async startGame() {
+  async checkForSavedTeam() {
+    const savedTeamId = dataService.getLastTeamId();
+    
+    if (savedTeamId) {
+      // Pre-fill the team input
+      if (this.elements.teamInput) {
+        this.elements.teamInput.value = savedTeamId;
+        this.validateTeamInput(savedTeamId.toString());
+      }
+      
+      // Auto-start the game with the saved team
+      await this.startGame(true);
+    }
+  }
+  
+  /**
+   * Start the game with the selected team
+   * @param {boolean} isAutoStart - Whether this is an automatic start
+   */
+  async startGame(isAutoStart = false) {
     if (!this.elements.teamInput) return;
     
     const teamValue = this.elements.teamInput.value;
@@ -118,6 +140,9 @@ class UIController {
     const success = await bingoGame.initializeGame(teamId);
     
     if (success) {
+      // Save the team ID for future sessions
+      dataService.saveLastTeamId(teamId);
+      
       // Hide splash screen and show game screen
       if (this.elements.splashScreen) {
         this.elements.splashScreen.classList.add('hidden');
@@ -130,6 +155,12 @@ class UIController {
       // Render game board
       this.renderBoard();
       this.updateTeamName();
+      
+      // Check if the team has already won and show winner screen
+      const { hasWon } = bingoGame.getGameState();
+      if (hasWon) {
+        this.showWinnerScreen();
+      }
     }
   }
 
@@ -179,7 +210,9 @@ class UIController {
       cell.classList.toggle('marked', wasMarked);
     }
     
-    if (bingoGame.checkForWin()) {
+    // Prüfe den Gewinnstatus direkt aus dem Spielobjekt
+    const { hasWon } = bingoGame.getGameState();
+    if (hasWon) {
       this.showWinnerScreen();
     }
   }
@@ -233,6 +266,9 @@ class UIController {
    * Restart the current game
    */
   restartGame() {
+    // Get current team ID before resetting
+    const currentTeamId = bingoGame.currentTeamId;
+    
     bingoGame.resetGame();
     
     // Hide game screen and show splash screen
@@ -244,9 +280,10 @@ class UIController {
       this.elements.splashScreen.classList.remove('hidden');
     }
     
-    // Reset team input
-    if (this.elements.teamInput) {
-      this.elements.teamInput.value = '';
+    // Pre-fill team input with last used team
+    if (this.elements.teamInput && currentTeamId) {
+      this.elements.teamInput.value = currentTeamId;
+      this.validateTeamInput(currentTeamId.toString());
     }
     
     // Hide winner screen

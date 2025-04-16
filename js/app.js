@@ -3,6 +3,7 @@
  */
 import uiController from './uiController.js';
 import bingoGame from './bingoGame.js';
+import helpController from './helpController.js';
 
 // Initialize confetti
 function initConfetti() {

@@ -11,6 +11,7 @@
 @import url('./modules/game-screen.css');
 @import url('./modules/winner-screen.css');
 @import url('./modules/footer.css');
+@import url('./modules/help-modal.css');
 
 /* Import animations and effects */
 @import url('./modules/animations.css');

@@ -30,6 +30,7 @@ class BingoGame {
       
       this.tasks = card.tasks;
       this.markedTasks = dataService.loadGameState(teamId);
+      this.hasWon = dataService.loadWinState(teamId);
       this.checkForWin();
       return true;
     } catch (error) {
@@ -54,8 +55,9 @@ class BingoGame {
       this.markedTasks.push(index);
     }
     
-    dataService.saveGameState(this.currentTeamId, this.markedTasks);
-    this.checkForWin();
+    dataService.saveGameState(this.currentTeamId, this.markedTasks, this.hasWon);
+    const hasWon = this.checkForWin();
+    this.hasWon = hasWon;
     return !isMarked;
   }
 
@@ -73,6 +75,9 @@ class BingoGame {
    * @returns {boolean} Whether the player has won
    */
   checkForWin() {
+    // Wir speichern den Spielstand erst nach der Gewinnprüfung
+    // und nicht vorher, um sicherzustellen, dass der aktuelle hasWon-Status korrekt ist
+
     // Check rows
     for (let row = 0; row < this.boardSize; row++) {
       const rowStart = row * this.boardSize;
@@ -88,6 +93,9 @@ class BingoGame {
       
       if (rowComplete) {
         this.hasWon = true;
+        if (this.currentTeamId) {
+          dataService.saveGameState(this.currentTeamId, this.markedTasks, true);
+        }
         return true;
       }
     }
@@ -106,6 +114,9 @@ class BingoGame {
       
       if (colComplete) {
         this.hasWon = true;
+        if (this.currentTeamId) {
+          dataService.saveGameState(this.currentTeamId, this.markedTasks, true);
+        }
         return true;
       }
     }
@@ -122,6 +133,9 @@ class BingoGame {
     
     if (diag1Complete) {
       this.hasWon = true;
+      if (this.currentTeamId) {
+        dataService.saveGameState(this.currentTeamId, this.markedTasks, true);
+      }
       return true;
     }
     
@@ -137,9 +151,16 @@ class BingoGame {
     
     if (diag2Complete) {
       this.hasWon = true;
+      if (this.currentTeamId) {
+        dataService.saveGameState(this.currentTeamId, this.markedTasks, true);
+      }
       return true;
     }
     
+    // Speichern des aktuellen Spielstands nach der Gewinnprüfung, wenn kein Gewinn vorliegt
+    if (this.currentTeamId) {
+      dataService.saveGameState(this.currentTeamId, this.markedTasks, this.hasWon);
+    }
     return false;
   }
 
@@ -147,10 +168,17 @@ class BingoGame {
    * Reset the game state
    */
   resetGame() {
+    // Store the current team ID before resetting
+    const teamId = this.currentTeamId;
+    
+    this.tasks = [];
     this.markedTasks = [];
     this.hasWon = false;
-    if (this.currentTeamId) {
-      dataService.clearGameState(this.currentTeamId);
+    
+    if (teamId) {
+      dataService.clearGameState(teamId);
+      // Keep the current team ID for reference
+      this.currentTeamId = teamId;
     }
   }
 

@@ -1,0 +1,149 @@
+/* 
+ * Help Modal Styles
+ * Wedding Bingo App
+ */
+
+/* Help Button */
+.help-button {
+  position: absolute;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: var(--secondary-color);
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 100;
+}
+
+.help-button:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.1);
+}
+
+/* Position for splash screen help button */
+#splash-help-button {
+  top: 15px;
+  right: 15px;
+}
+
+/* Position for game screen help button */
+#game-help-button {
+  top: 15px;
+  right: 15px;
+}
+
+/* Help Modal */
+.help-modal {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 2000;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.help-modal.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.help-modal-content {
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 30px;
+  max-width: 90%;
+  width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+  box-shadow: var(--card-shadow);
+  transform: translateY(-20px);
+  transition: transform 0.3s ease;
+  border-top: 5px solid var(--primary-color);
+}
+
+.help-modal.active .help-modal-content {
+  transform: translateY(0);
+}
+
+.close-help {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: var(--text-color);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.close-help:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+.help-content {
+  margin-top: 20px;
+}
+
+.help-content h3 {
+  color: var(--primary-color);
+  margin-top: 20px;
+  margin-bottom: 10px;
+  font-family: var(--heading-font);
+}
+
+.help-content ol, 
+.help-content ul {
+  padding-left: 20px;
+  margin-bottom: 15px;
+}
+
+.help-content li {
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.help-footer {
+  margin-top: 20px;
+  font-style: italic;
+  text-align: center;
+  color: var(--primary-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+  .help-modal-content {
+    padding: 20px;
+    width: 95%;
+  }
+  
+  .help-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .help-content li {
+    font-size: 0.9rem;
+  }
+}
