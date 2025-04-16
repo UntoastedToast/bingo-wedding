@@ -102,24 +102,14 @@
   font-weight: 500;
 }
 
-.splash-title::after {
-  content: '';
-  position: absolute;
-  bottom: -16px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 2px;
-  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
-}
-
 .splash-title::before {
   content: '💍';
   font-size: 1.8rem;
   position: absolute;
-  bottom: -32px;
+  bottom: -38px; /* Vergrößerter Abstand zum Strich */
   left: 50%;
   transform: translateX(-50%);
+  z-index: 2; /* Ring über dem Strich platzieren */
 }
 
 .team-input-container {

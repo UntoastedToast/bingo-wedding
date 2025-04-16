@@ -285,6 +285,10 @@ class UIController {
     
     bingoGame.resetGame();
     
+    // Wichtig: Entferne die gespeicherte Team-ID, damit beim Neuladen der Seite 
+    // nicht automatisch das Spiel des vorherigen Teams geladen wird
+    dataService.clearLastTeamId();
+    
     // Hide game screen and show splash screen
     if (this.elements.gameScreen) {
       this.elements.gameScreen.classList.remove('active');
@@ -294,7 +298,7 @@ class UIController {
       this.elements.splashScreen.classList.remove('hidden');
     }
     
-    // Pre-fill team input with last used team
+    // Pre-fill team input with last used team (nur in der aktuellen Sitzung)
     if (this.elements.teamInput && currentTeamId) {
       this.elements.teamInput.value = currentTeamId;
       this.validateTeamInput(currentTeamId.toString());

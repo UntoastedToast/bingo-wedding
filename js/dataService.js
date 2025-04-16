@@ -97,6 +97,13 @@ class DataService {
     const lastTeam = localStorage.getItem('lastSelectedTeam');
     return lastTeam ? parseInt(lastTeam) : null;
   }
+
+  /**
+   * Clear the last selected team ID
+   */
+  clearLastTeamId() {
+    localStorage.removeItem('lastSelectedTeam');
+  }
 }
 
 export default new DataService();
