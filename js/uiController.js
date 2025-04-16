@@ -30,9 +30,14 @@ class UIController {
     
     // Bind methods to ensure correct 'this' context
     this.restartGame = this.restartGame.bind(this);
+    this.showCellDialog = this.showCellDialog.bind(this);
+    this.hideCellDialog = this.hideCellDialog.bind(this);
     
     // Check for saved team ID and auto-start game if available
     this.checkForSavedTeam();
+    
+    // Create dialog overlay for cell content
+    this.createCellDialog();
   }
 
   /**
@@ -193,7 +198,16 @@ class UIController {
     document.querySelectorAll('.bingo-cell:not(.free-space)').forEach(cell => {
       cell.addEventListener('click', (e) => {
         const index = parseInt(e.currentTarget.dataset.index);
-        this.onCellClick(index);
+        const text = e.currentTarget.querySelector('.cell-content').textContent;
+        const isMarked = e.currentTarget.classList.contains('marked');
+        
+        // Wenn bereits markiert, direkt umschalten
+        if (isMarked) {
+          this.onCellClick(index);
+        } else {
+          // Ansonsten Dialog anzeigen
+          this.showCellDialog(text, index);
+        }
       });
     });
   }
@@ -318,6 +332,107 @@ class UIController {
         }
       }, 300);
     }
+  }
+  
+  /**
+   * Create the cell dialog overlay
+   */
+  createCellDialog() {
+    // Check if the dialog already exists
+    if (document.getElementById('cell-dialog-overlay')) return;
+    
+    const dialogOverlay = document.createElement('div');
+    dialogOverlay.id = 'cell-dialog-overlay';
+    dialogOverlay.className = 'cell-dialog-overlay';
+    
+    const dialog = document.createElement('div');
+    dialog.className = 'cell-dialog';
+    
+    const closeButton = document.createElement('button');
+    closeButton.className = 'dialog-close';
+    closeButton.innerHTML = '×';
+    closeButton.addEventListener('click', this.hideCellDialog);
+    
+    const content = document.createElement('div');
+    content.className = 'dialog-content';
+    content.id = 'dialog-content';
+    
+    const buttonContainer = document.createElement('div');
+    buttonContainer.className = 'dialog-buttons';
+    
+    const confirmButton = document.createElement('button');
+    confirmButton.className = 'dialog-button confirm';
+    confirmButton.textContent = 'Markieren';
+    confirmButton.id = 'dialog-confirm';
+    
+    const cancelButton = document.createElement('button');
+    cancelButton.className = 'dialog-button cancel';
+    cancelButton.textContent = 'Abbrechen';
+    cancelButton.addEventListener('click', this.hideCellDialog);
+    
+    buttonContainer.appendChild(cancelButton);
+    buttonContainer.appendChild(confirmButton);
+    
+    dialog.appendChild(closeButton);
+    dialog.appendChild(content);
+    dialog.appendChild(buttonContainer);
+    
+    dialogOverlay.appendChild(dialog);
+    document.body.appendChild(dialogOverlay);
+    
+    // Close dialog when clicking on overlay background
+    dialogOverlay.addEventListener('click', (e) => {
+      if (e.target === dialogOverlay) {
+        this.hideCellDialog();
+      }
+    });
+  }
+  
+  /**
+   * Show cell dialog with content
+   * @param {string} text - The text to display
+   * @param {number} index - The cell index
+   */
+  showCellDialog(text, index) {
+    const dialogOverlay = document.getElementById('cell-dialog-overlay');
+    const dialogContent = document.getElementById('dialog-content');
+    const confirmButton = document.getElementById('dialog-confirm');
+    
+    if (!dialogOverlay || !dialogContent || !confirmButton) return;
+    
+    // Set dialog content
+    dialogContent.textContent = text;
+    
+    // Update confirm button with the cell index
+    confirmButton.dataset.index = index;
+    
+    // Remove old event listener to avoid duplicates
+    confirmButton.replaceWith(confirmButton.cloneNode(true));
+    
+    // Add new event listener
+    document.getElementById('dialog-confirm').addEventListener('click', () => {
+      this.onCellClick(index);
+      this.hideCellDialog();
+    });
+    
+    // Show dialog
+    dialogOverlay.classList.add('active');
+    
+    // Prevent scrolling on the body
+    document.body.style.overflow = 'hidden';
+  }
+  
+  /**
+   * Hide cell dialog
+   */
+  hideCellDialog() {
+    const dialogOverlay = document.getElementById('cell-dialog-overlay');
+    if (!dialogOverlay) return;
+    
+    dialogOverlay.classList.remove('active');
+    
+    // Re-enable scrolling
+    document.body.style.overflow = '';
   }
 }
 
