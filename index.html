@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hochzeits-Bingo</title>
+    <meta name="description" content="Ein interaktives Bingo-Spiel für Hochzeitsgäste">
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Application scripts are loaded with type="module" to enable ES6 imports -->
+    <script type="module" src="js/app.js"></script>
+</head>
+<body>
+    <!-- Splash Screen with Team Selection -->
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <h1 class="splash-title">Hochzeits-Bingo</h1>
+            <p>Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
+            
+            <div class="team-input-container">
+                <h2>Wähle deinen Tisch</h2>
+                <p>Gib deine Tischnummer ein (1-10)</p>
+                <input type="number" id="team-input" class="team-input" min="1" max="10" placeholder="Tischnummer">
+                <div id="error-message" class="error-message">Bitte gib eine Zahl zwischen 1 und 10 ein</div>
+            </div>
+            
+            <button id="start-button" class="start-button">Spiel starten</button>
+        </div>
+    </div>
+
+    <!-- Game Screen -->
+    <div id="game-screen" class="game-screen">
+        <div class="container">
+            <header>
+                <h1>Hochzeits-Bingo</h1>
+                <p>Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
+            </header>
+
+            <section class="bingo-board">
+                <div class="team-info">
+                    <h2>Tisch: <span id="team-name">---</span></h2>
+                </div>
+                <div id="bingo-board">
+                    <!-- Bingo board will be generated dynamically -->
+                </div>
+            </section>
+
+            <footer>
+                <p>Viel Spaß bei der Hochzeit! 💍</p>
+            </footer>
+        </div>
+
+        <!-- Winner Screen with separate layers -->
+        <div id="winner-screen" class="winner-screen">
+            <!-- Dark background layer (behind) -->
+            <div class="winner-background"></div>
+            
+            <!-- Confetti will appear in between -->
+            
+            <!-- Content layer (front) -->
+            <div class="winner-content">
+                <h2>BINGO!</h2>
+                <p>Glückwunsch!</p>
+                <div class="winner-team" id="winner-team"></div>
+                <p>Ihr habt gewonnen!</p>
+                <button id="restart-button" class="restart-button">Neues Spiel</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // When the winner screen is shown, trigger the confetti animation
+        document.getElementById('winner-screen').addEventListener('transitionend', function(e) {
+            if (e.propertyName === 'opacity' && this.classList.contains('active')) {
+                window.showWinningConfetti();
+            }
+        });
+    </script>
+</body>
+</html>

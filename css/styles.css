@@ -1,0 +1,487 @@
+/* Wedding Bingo App Styles */
+:root {
+  --primary-color: #f3a8c7;
+  --secondary-color: #b976af;
+  --tertiary-color: #7c5c88;
+  --background-color: #fff5fa;
+  --text-color: #333;
+  --accent-color: #e65c9c;
+  --success-color: #4CAF50;
+  --light-color: #fff9fc;
+  --dark-color: #4a314e;
+  --border-radius: 12px;
+  --box-shadow: 0 8px 20px rgba(243, 168, 199, 0.15);
+  --font-family: 'Playfair Display', serif;
+  --font-family-sans: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-family-sans);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.6;
+  min-height: 100vh;
+  overflow-x: hidden;
+  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M50 50m-3 0a3 3 0 1 0 6 0a3 3 0 1 0 -6 0" fill="%23f3a8c7" opacity="0.1"/></svg>');
+  background-size: 60px 60px;
+}
+
+.container {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, var(--primary-color), var(--secondary-color), var(--tertiary-color));
+  border-radius: var(--border-radius);
+  color: white;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+header::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M30,30 C35,20 65,20 70,30 C75,40 75,60 70,70 C65,80 35,80 30,70 C25,60 25,40 30,30 Z" fill="none" stroke="white" stroke-width="1" opacity="0.2"/></svg>');
+  background-size: 100px 100px;
+  opacity: 0.2;
+}
+
+h1 {
+  font-family: var(--font-family);
+  font-size: 2.2rem;
+  margin-bottom: 10px;
+  position: relative;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+h2 {
+  font-family: var(--font-family);
+  font-size: 1.6rem;
+  margin-bottom: 15px;
+  color: var(--tertiary-color);
+}
+
+/* Splash screen with team selection */
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--light-color), var(--background-color));
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.splash-content {
+  background-color: white;
+  padding: 40px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: var(--box-shadow);
+  max-width: 90%;
+  width: 400px;
+  position: relative;
+}
+
+.splash-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+.splash-title {
+  font-family: var(--font-family);
+  color: var(--tertiary-color);
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.splash-title::after {
+  content: '💍';
+  font-size: 1.5rem;
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.team-input-container {
+  margin: 30px 0 20px;
+  position: relative;
+}
+
+.team-input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: var(--light-color);
+  color: var(--tertiary-color);
+  font-weight: bold;
+  transition: var(--transition);
+}
+
+.team-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(230, 92, 156, 0.2);
+}
+
+.start-button {
+  background: linear-gradient(to right, var(--secondary-color), var(--accent-color));
+  color: white;
+  border: none;
+  padding: 15px 30px;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: bold;
+  margin-top: 20px;
+  box-shadow: 0 4px 10px rgba(230, 92, 156, 0.3);
+}
+
+.start-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 14px rgba(230, 92, 156, 0.4);
+}
+
+.start-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(230, 92, 156, 0.3);
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  height: 20px;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.error-message.show {
+  opacity: 1;
+}
+
+/* Hide splash when game starts */
+.splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Game screen */
+.game-screen {
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+}
+
+.game-screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Bingo Board */
+.bingo-board {
+  margin-bottom: 30px;
+}
+
+.team-info {
+  text-align: center;
+  margin-bottom: 25px;
+  padding: 15px;
+  background-color: white;
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  position: relative;
+}
+
+.team-info::before {
+  content: '👥';
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.3rem;
+}
+
+.bingo-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-gap: 10px;
+  margin-bottom: 20px;
+}
+
+.bingo-cell {
+  aspect-ratio: 1;
+  background-color: white;
+  border-radius: var(--border-radius);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px 5px;
+  border: 2px solid var(--primary-color);
+  transition: var(--transition);
+  cursor: pointer;
+  box-shadow: var(--box-shadow);
+  position: relative;
+  overflow: hidden;
+}
+
+.bingo-cell:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(243, 168, 199, 0.2);
+}
+
+.bingo-cell.marked {
+  background-color: var(--primary-color);
+  color: white;
+  transform: scale(0.98);
+  border-color: var(--secondary-color);
+}
+
+.bingo-cell.marked:hover {
+  transform: scale(0.99);
+}
+
+.bingo-cell.free-space {
+  background: linear-gradient(135deg, var(--secondary-color), var(--tertiary-color));
+  color: white;
+  font-weight: bold;
+  cursor: default;
+  border: none;
+}
+
+.bingo-cell.free-space:hover {
+  transform: none;
+}
+
+.bingo-cell.free-space::before {
+  content: '✨';
+  position: absolute;
+  font-size: 1.5rem;
+  opacity: 0.2;
+}
+
+.cell-content {
+  font-size: 0.85rem;
+  line-height: 1.3;
+  word-break: break-word;
+  hyphens: auto;
+}
+
+/* Winner Screen */
+.winner-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 990; /* Base z-index for the entire screen */
+  pointer-events: auto; /* Ensure clicks are captured */
+}
+
+/* Dark background layer */
+.winner-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5; /* Low z-index (confetti will be higher) */
+}
+
+.winner-screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.winner-content {
+  background: linear-gradient(135deg, var(--accent-color), var(--secondary-color), var(--tertiary-color));
+  padding: 40px 30px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  max-width: 80%;
+  position: relative;
+  overflow: hidden;
+  z-index: 200; /* Higher than confetti (set to 100 in JS) */
+}
+
+.winner-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M30 10L33 24H47L36 33L39 47L30 38L21 47L24 33L13 24H27L30 10Z" fill="white" opacity="0.1"/></svg>');
+  background-size: 60px 60px;
+}
+
+.winner-content h2 {
+  font-family: var(--font-family);
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  color: white;
+  position: relative;
+}
+
+.winner-content h2::after {
+  content: '🎉';
+  position: absolute;
+  font-size: 1.5rem;
+  bottom: -5px;
+  right: -25px;
+}
+
+.winner-team {
+  font-size: 1.8rem;
+  margin: 20px 0;
+  font-weight: bold;
+  font-family: var(--font-family);
+  color: white;
+}
+
+.restart-button {
+  background-color: white;
+  color: var(--accent-color);
+  border: none;
+  padding: 15px 30px;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: bold;
+  margin-top: 30px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1001; /* Highest z-index to ensure clickability */
+  pointer-events: auto; /* Ensure clicks are captured */
+}
+
+.restart-button:hover {
+  background-color: var(--light-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  margin-top: 40px;
+  font-size: 0.9rem;
+  color: var(--tertiary-color);
+  opacity: 0.7;
+}
+
+/* Shimmer effect */
+.shimmer-particle {
+  position: absolute;
+  background-color: var(--primary-color);
+  border-radius: 50%;
+  opacity: 0.3;
+  pointer-events: none;
+  animation: shimmer 8s infinite ease-in-out;
+}
+
+@keyframes shimmer {
+  0% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(-30px, -30px) scale(1.5);
+    opacity: 0.2;
+  }
+  75% {
+    opacity: 0.3;
+  }
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0;
+  }
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .container {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .splash-content {
+    padding: 30px 20px;
+  }
+  
+  .winner-content {
+    padding: 30px 20px;
+  }
+  
+  .winner-content h2 {
+    font-size: 2rem;
+  }
+}
+
+@media (max-width: 350px) {
+  .cell-content {
+    font-size: 0.7rem;
+  }
+  
+  .team-input {
+    padding: 12px;
+    font-size: 1rem;
+  }
+  
+  .start-button {
+    padding: 12px 24px;
+    font-size: 1rem;
+  }
+}
