@@ -1,0 +1,232 @@
+/* 
+ * Splash Screen Styles
+ * Wedding Bingo App
+ */
+
+.splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(ellipse at top, var(--light-color), var(--background-color) 70%);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  transition: var(--transition);
+}
+
+.splash-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+}
+
+.splash-content {
+  background-color: white;
+  padding: 40px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: var(--card-shadow);
+  max-width: 90%;
+  width: 400px;
+  position: relative;
+  border: 1px solid rgba(230, 164, 196, 0.2);
+  background-image: url('data:image/svg+xml;utf8,<svg width="30" height="30" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg"><path d="M15 5L16.5 11H23L17.75 14.5L19.5 20.5L15 16.5L10.5 20.5L12.25 14.5L7 11H13.5L15 5Z" fill="%23e6a4c4" opacity="0.03"/></svg>');
+  background-size: 30px 30px;
+}
+
+.splash-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 10px;
+  background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+  border-radius: var(--border-radius) var(--border-radius) 0 0;
+}
+
+/* Logo decoration for the splash screen */
+.logo-decoration {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.decoration-line {
+  height: 1px;
+  width: 50px;
+  background: linear-gradient(to var(--direction, right), transparent, var(--accent-color));
+  display: inline-block;
+}
+
+.decoration-line:first-child {
+  --direction: right;
+}
+
+.decoration-line:last-child {
+  --direction: left;
+}
+
+.decoration-heart {
+  color: var(--accent-color);
+  font-size: 1.5rem;
+  margin: 0 10px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulse 1.5s infinite alternate;
+}
+
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.1);
+    opacity: 1;
+  }
+}
+
+.splash-title {
+  font-family: var(--font-family);
+  color: var(--tertiary-color);
+  margin-bottom: 40px;
+  position: relative;
+  text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.8);
+  letter-spacing: 0.03em;
+  font-weight: 500;
+}
+
+.splash-title::after {
+  content: '';
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(to right, transparent, var(--primary-color), transparent);
+}
+
+.splash-title::before {
+  content: '💍';
+  font-size: 1.8rem;
+  position: absolute;
+  bottom: -32px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.team-input-container {
+  margin: 30px 0 20px;
+  position: relative;
+}
+
+.team-input {
+  width: 100%;
+  padding: 15px;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: var(--light-color);
+  color: var(--tertiary-color);
+  font-weight: bold;
+  transition: var(--transition);
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.team-input::-webkit-inner-spin-button, 
+.team-input::-webkit-outer-spin-button { 
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.team-input:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 3px rgba(230, 92, 156, 0.2);
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-top: 10px;
+  font-size: 0.9rem;
+  height: 20px;
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.error-message.show {
+  opacity: 1;
+}
+
+.start-button {
+  background: linear-gradient(135deg, var(--secondary-color), var(--accent-color));
+  color: white;
+  border: none;
+  padding: 15px 35px;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: bold;
+  margin-top: 30px;
+  box-shadow: 0 4px 10px rgba(216, 87, 123, 0.3);
+  letter-spacing: 0.05em;
+  position: relative;
+  overflow: hidden;
+  text-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+
+.button-text {
+  position: relative;
+  z-index: 1;
+}
+
+.start-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: var(--transition);
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--hover-shadow);
+}
+
+.start-button:hover::after {
+  left: 100%;
+  transition: 0.7s;
+}
+
+.start-button:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 8px rgba(230, 92, 156, 0.3);
+}
+
+.start-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.splash-footnote {
+  margin-top: 30px;
+  font-size: 0.85rem;
+  opacity: 0.7;
+  font-style: italic;
+}
+
+.splash-footnote p {
+  color: var(--tertiary-color);
+}

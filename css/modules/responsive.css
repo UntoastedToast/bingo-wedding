@@ -1,0 +1,113 @@
+/* 
+ * Responsive Styles
+ * Wedding Bingo App
+ */
+
+/* Tablet and smaller screens */
+@media (max-width: 768px) {
+  .container {
+    padding: 15px;
+  }
+  
+  h1 {
+    font-size: 2rem;
+  }
+  
+  .splash-content {
+    padding: 30px;
+  }
+  
+  .bingo-cell {
+    font-size: 0.8rem;
+  }
+}
+
+/* Mobile screens */
+@media (max-width: 480px) {
+  .container {
+    padding: 10px;
+  }
+  
+  h1 {
+    font-size: 1.8rem;
+  }
+  
+  .splash-content {
+    padding: 25px;
+  }
+  
+  .team-input {
+    padding: 12px;
+    font-size: 1.1rem;
+  }
+  
+  .start-button {
+    padding: 12px 30px;
+    font-size: 1.1rem;
+  }
+  
+  .bingo-grid {
+    grid-gap: 8px;
+  }
+  
+  .bingo-cell {
+    font-size: 0.75rem;
+    padding: 8px;
+  }
+  
+  .winner-content h2 {
+    font-size: 3rem;
+  }
+  
+  .winner-team {
+    font-size: 1.8rem;
+  }
+  
+  .restart-button {
+    padding: 12px 25px;
+    font-size: 1rem;
+  }
+}
+
+/* Small mobile screens */
+@media (max-width: 360px) {
+  .bingo-grid {
+    grid-gap: 6px;
+  }
+  
+  .bingo-cell {
+    font-size: 0.7rem;
+    padding: 5px;
+  }
+  
+  .team-info::before {
+    font-size: 1.1rem;
+  }
+  
+  .winner-content h2 {
+    font-size: 2.5rem;
+  }
+}
+
+/* Landscape orientation on mobile */
+@media (max-height: 480px) and (orientation: landscape) {
+  .splash-content {
+    padding: 20px;
+  }
+  
+  .splash-title {
+    margin-bottom: 30px;
+  }
+  
+  .team-input-container {
+    margin: 20px 0 15px;
+  }
+  
+  .start-button {
+    margin-top: 20px;
+  }
+  
+  .winner-content {
+    padding: 20px;
+  }
+}

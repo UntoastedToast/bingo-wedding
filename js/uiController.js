@@ -71,8 +71,14 @@ class UIController {
     
     // Add event listener directly to the document to ensure it works
     document.addEventListener('click', (e) => {
+      // Restart button handler
       if (e.target && e.target.id === 'restart-button') {
         this.restartGame();
+      }
+      
+      // Back to team selection button
+      if (e.target && (e.target.id === 'back-to-team' || e.target.closest('#back-to-team'))) {
+        this.returnToTeamSelection();
       }
     });
   }
@@ -245,6 +251,36 @@ class UIController {
     
     // Hide winner screen
     this.hideWinnerScreen();
+  }
+  
+  /**
+   * Return to team selection from game screen
+   */
+  returnToTeamSelection() {
+    // Add a subtle exit animation
+    if (this.elements.gameScreen) {
+      this.elements.gameScreen.style.opacity = '0';
+      
+      setTimeout(() => {
+        // Hide game screen and show splash screen
+        this.elements.gameScreen.classList.remove('active');
+        this.elements.gameScreen.style.opacity = '1';
+        
+        if (this.elements.splashScreen) {
+          this.elements.splashScreen.classList.remove('hidden');
+        }
+        
+        // Reset game state but preserve team selection
+        const currentTeamId = bingoGame.currentTeamId;
+        bingoGame.resetGame();
+        
+        // Pre-select the current team for convenience
+        if (this.elements.teamInput && currentTeamId) {
+          this.elements.teamInput.value = currentTeamId;
+          this.validateTeamInput(currentTeamId);
+        }
+      }, 300);
+    }
   }
 }
 

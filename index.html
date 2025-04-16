@@ -14,6 +14,12 @@
     <!-- Splash Screen with Team Selection -->
     <div id="splash-screen" class="splash-screen">
         <div class="splash-content">
+            <div class="logo-decoration">
+                <span class="decoration-line"></span>
+                <span class="decoration-heart">&hearts;</span>
+                <span class="decoration-line"></span>
+            </div>
+            
             <h1 class="splash-title">Hochzeits-Bingo</h1>
             <p>Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
             
@@ -24,7 +30,13 @@
                 <div id="error-message" class="error-message">Bitte gib eine Zahl zwischen 1 und 10 ein</div>
             </div>
             
-            <button id="start-button" class="start-button">Spiel starten</button>
+            <button id="start-button" class="start-button">
+                <span class="button-text">Spiel starten</span>
+            </button>
+            
+            <div class="splash-footnote">
+                <p>Erstellt mit ♥ für das Brautpaar</p>
+            </div>
         </div>
     </div>
 
@@ -32,6 +44,9 @@
     <div id="game-screen" class="game-screen">
         <div class="container">
             <header>
+                <div class="header-decoration">
+                    <span class="decoration-ring">&#128141;</span>
+                </div>
                 <h1>Hochzeits-Bingo</h1>
                 <p>Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
             </header>
@@ -39,6 +54,9 @@
             <section class="bingo-board">
                 <div class="team-info">
                     <h2>Tisch: <span id="team-name">---</span></h2>
+                    <div class="progress-container">
+                        <p class="progress-text">Markiere alle Aufgaben in einer Reihe!</p>
+                    </div>
                 </div>
                 <div id="bingo-board">
                     <!-- Bingo board will be generated dynamically -->
@@ -46,7 +64,15 @@
             </section>
 
             <footer>
+                <div class="footer-decoration">
+                    <span class="decoration-line"></span>
+                    <span class="decoration-heart">&hearts;</span>
+                    <span class="decoration-line"></span>
+                </div>
                 <p>Viel Spaß bei der Hochzeit! 💍</p>
+                <div class="back-button" id="back-to-team">
+                    <i class="back-icon">&larr;</i> Zurück zur Tischauswahl
+                </div>
             </footer>
         </div>
 
@@ -59,10 +85,14 @@
             
             <!-- Content layer (front) -->
             <div class="winner-content">
-                <h2>BINGO!</h2>
-                <p>Glückwunsch!</p>
+                <div class="winner-badge">
+                    <div class="badge-circle"></div>
+                    <h2>BINGO!</h2>
+                </div>
+                <p class="winner-congrats">Glückwunsch!</p>
                 <div class="winner-team" id="winner-team"></div>
-                <p>Ihr habt gewonnen!</p>
+                <p class="winner-message">Ihr habt gewonnen!</p>
+                <div class="trophy-icon">&#127942;</div>
                 <button id="restart-button" class="restart-button">Neues Spiel</button>
             </div>
         </div>

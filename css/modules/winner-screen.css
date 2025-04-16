@@ -1,0 +1,253 @@
+/* 
+ * Winner Screen Styles
+ * Wedding Bingo App
+ */
+
+.winner-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  opacity: 0;
+  visibility: hidden;
+  transition: var(--transition);
+  z-index: 990; /* Base z-index for the entire screen */
+  pointer-events: auto; /* Ensure clicks are captured */
+}
+
+/* Dark background layer */
+.winner-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 5; /* Low z-index (confetti will be higher) */
+}
+
+.winner-screen.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.winner-badge {
+  position: relative;
+  margin-bottom: 30px;
+  animation: winner-scale 0.5s ease-out;
+}
+
+.badge-circle {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  border: 2px dashed rgba(255, 255, 255, 0.5);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: -1;
+  animation: rotate 20s linear infinite;
+}
+
+@keyframes rotate {
+  0% {
+    transform: translate(-50%, -50%) rotate(0deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) rotate(360deg);
+  }
+}
+
+.winner-content {
+  background: linear-gradient(135deg, var(--accent-color), var(--secondary-color), var(--tertiary-color));
+  padding: 50px 40px;
+  border-radius: var(--border-radius);
+  text-align: center;
+  box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  max-width: 80%;
+  position: relative;
+  overflow: hidden;
+  z-index: 200; /* Higher than confetti (set to 100 in JS) */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  animation: winner-pulse 2s infinite alternate;
+}
+
+@keyframes winner-pulse {
+  0% {
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+  }
+  100% {
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.5), 0 0 80px rgba(230, 164, 196, 0.3);
+  }
+}
+
+.winner-content::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('data:image/svg+xml;utf8,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><path d="M30 10L33 24H47L36 33L39 47L30 38L21 47L24 33L13 24H27L30 10Z" fill="white" opacity="0.1"/></svg>');
+  background-size: 60px 60px;
+}
+
+.winner-content h2 {
+  font-family: var(--font-family);
+  font-size: 3.5rem;
+  margin-bottom: 0;
+  color: white;
+  position: relative;
+  letter-spacing: 0.05em;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15), 0 0 15px rgba(255, 255, 255, 0.5);
+  transform-origin: center;
+  animation: winner-scale 0.5s ease-out, glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15), 0 0 10px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.15), 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(230, 164, 196, 0.5);
+  }
+}
+
+@keyframes winner-scale {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  70% {
+    transform: scale(1.1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.winner-congrats {
+  margin-bottom: 5px;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  animation: slide-in 0.5s 0.2s both;
+}
+
+.winner-message {
+  margin-top: 5px;
+  font-size: 1.2rem;
+  color: rgba(255, 255, 255, 0.9);
+  animation: slide-in 0.5s 0.4s both;
+}
+
+@keyframes slide-in {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.trophy-icon {
+  font-size: 2.5rem;
+  margin: 20px 0;
+  animation: bounce 1s ease infinite alternate;
+}
+
+@keyframes bounce {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(-10px);
+  }
+}
+
+.winner-team {
+  font-size: 2rem;
+  margin: 20px 0;
+  font-weight: bold;
+  font-family: var(--font-family);
+  color: white;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  position: relative;
+  display: inline-block;
+  padding: 0 20px;
+}
+
+.winner-team::before,
+.winner-team::after {
+  content: '✨';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+.winner-team::before {
+  left: -10px;
+}
+
+.winner-team::after {
+  right: -10px;
+}
+
+.restart-button {
+  background-color: white;
+  color: var(--accent-color);
+  border: none;
+  padding: 15px 40px;
+  border-radius: var(--border-radius);
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: var(--transition);
+  font-weight: bold;
+  margin-top: 40px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  position: relative;
+  z-index: 1001; /* Highest z-index to ensure clickability */
+  pointer-events: auto; /* Ensure clicks are captured */
+  letter-spacing: 0.03em;
+  border: 2px solid transparent;
+  overflow: hidden;
+  animation: button-appear 0.5s 0.3s backwards;
+}
+
+@keyframes button-appear {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.restart-button:hover {
+  background-color: var(--light-color);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
+}
+
+.restart-button:active {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.restart-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.3), 0 6px 18px rgba(0, 0, 0, 0.3);
+}
