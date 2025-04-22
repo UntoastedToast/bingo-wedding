@@ -25,7 +25,7 @@
   
   /* Typography */
   --font-family: 'Playfair Display', serif;
-  --font-family-sans: 'Open Sans', 'Helvetica Neue', sans-serif;
+  --font-family-sans: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
   
   /* Animations */
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);

@@ -234,7 +234,7 @@
   padding: 7.5px 15px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); /* Gleicher Schatten wie restart-button */
   border: 2px solid transparent;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: --font-family-sans, sans-serif;
   /* Präzisere Padding-Werte für exakte Höhenanpassung */
 }
 
@@ -404,7 +404,7 @@
   border: 2px solid transparent;
   overflow: hidden;
   animation: button-appear 0.5s 0.3s backwards;
-  font-family: 'Source Sans Pro', sans-serif;
+  font-family: --font-family-sans, sans-serif;
 }
 
 @keyframes button-appear {
