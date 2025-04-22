@@ -25,7 +25,7 @@
   
   /* Typography */
   --font-family: 'Playfair Display', serif;
-  --font-family-sans: 'Source Sans Pro', 'Helvetica Neue', sans-serif;
+  --font-family-sans: 'Open Sans', 'Helvetica Neue', sans-serif;
   
   /* Animations */
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
@@ -46,10 +46,8 @@ body {
   line-height: 1.6;
   min-height: 100vh;
   overflow-x: hidden;
-  background-image: url('data:image/svg+xml;utf8,<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><path d="M25,30 Q40,5 50,30 T75,30 M25,60 Q40,35 50,60 T75,60" stroke="%23e6a4c4" fill="none" stroke-width="1" opacity="0.2"/></svg>'), 
-                  url('data:image/svg+xml;utf8,<svg width="80" height="80" viewBox="0 0 80 80" xmlns="http://www.w3.org/2000/svg"><path d="M40 15L43 25H53L45 32L48 42L40 35L32 42L35 32L27 25H37L40 15Z" fill="%239d7bb0" opacity="0.05"/></svg>');
-  background-size: 100px 100px, 80px 80px;
-  background-position: 0 0, 40px 40px;
+  background-size: 120px 120px;
+  background-position: 0 0;
   letter-spacing: 0.01em;
 }
 

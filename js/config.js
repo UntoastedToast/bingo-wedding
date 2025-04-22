@@ -10,7 +10,7 @@ const config = {
     
     // Free space configuration
     freeSpace: {
-        text: 'FREIES FELD',
+        text: '', // Empty text as requested
         position: 12 // Center position in a 5x5 grid (0-based index)
     },
     
