@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hochzeits-Bingo</title>
-    <meta name="description" content="Ein interaktives Bingo-Spiel für Hochzeitsgäste">
+    <title data-i18n="app.title">Hochzeits-Bingo</title>
+    <meta name="description" data-i18n="app.description" content="Ein interaktives Bingo-Spiel für Hochzeitsgäste">
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Lokale Flag Icons CSS -->
+    <link rel="stylesheet" href="css/flag-icons.min.css">
     <!-- Application scripts are loaded with type="module" to enable ES6 imports -->
     <script type="module" src="js/app.js"></script>
 </head>
@@ -20,23 +22,33 @@
                 <span class="decoration-line"></span>
             </div>
             
-            <h1 class="splash-title">Hochzeits-Bingo</h1>
-            <p>Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
+            <h1 class="splash-title" data-i18n="splash.title">Hochzeits-Bingo</h1>
+            <p data-i18n="splash.instruction">Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
             
             <div class="team-input-container">
-                <h2>Wähle deinen Tisch</h2>
-                <p>Gib deine Tischnummer ein (1-10)</p>
-                <input type="number" id="team-input" class="team-input" min="1" max="10" placeholder="Tischnummer">
-                <div id="error-message" class="error-message">Bitte gib eine Zahl zwischen 1 und 10 ein</div>
+                <h2 data-i18n="splash.teamTitle">Wähle deinen Tisch</h2>
+                <p data-i18n="splash.teamPrompt">Gib deine Tischnummer ein (1-10)</p>
+                <input type="number" id="team-input" class="team-input" min="1" max="10" data-i18n-placeholder="splash.teamPlaceholder" placeholder="Tischnummer">
+                <div id="error-message" class="error-message" data-i18n="splash.errorMessage">Bitte gib eine Zahl zwischen 1 und 10 ein</div>
             </div>
             
-            <button id="start-button" class="start-button">
-                <span class="button-text">Spiel starten</span>
-            </button>
-            
-            <div class="splash-footnote">
-                <p>Erstellt mit ♥ für das Brautpaar</p>
-                <p style="opacity: 0.4;">von Janik</p>
+            <div class="language-switcher">
+                    <button class="lang-button" data-lang="de">
+                        <span class="flag-icon flag-icon-de"></span>
+                    </button>
+                    <button class="lang-button" data-lang="en">
+                        <span class="flag-icon flag-icon-gb"></span>
+                    </button>
+                    <button class="lang-button" data-lang="pl">
+                        <span class="flag-icon flag-icon-pl"></span>
+                    </button>
+                </div>
+                <button id="start-button" class="start-button">
+                    <span class="button-text" data-i18n="splash.startButton">Spiel starten</span>
+                </button>
+                <div class="splash-footnote">
+                <p data-i18n="splash.footnote">Erstellt mit ♥ für das Brautpaar</p>
+                <p style="opacity: 0.4;" data-i18n="splash.creator">von Janik</p>
             </div>
         </div>
     </div>
@@ -48,15 +60,15 @@
                 <div class="header-decoration">
                     <span class="decoration-ring">&#128141;</span>
                 </div>
-                <h1>Hochzeits-Bingo</h1>
-                <p>Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
+                <h1 data-i18n="game.title">Hochzeits-Bingo</h1>
+                <p data-i18n="game.instruction">Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!</p>
             </header>
 
             <section class="bingo-board">
                 <div class="team-info">
-                    <h2>Tisch: <span id="team-name">---</span></h2>
+                    <h2><span data-i18n="game.teamLabel">Tisch:</span> <span id="team-name">---</span></h2>
                     <div class="progress-container">
-                        <p class="progress-text">Markiere alle Aufgaben in einer Reihe!</p>
+                        <p class="progress-text" data-i18n="game.progressText">Markiere alle Aufgaben in einer Reihe!</p>
                     </div>
                 </div>
                 <div id="bingo-board">
@@ -70,9 +82,20 @@
                     <span class="decoration-heart">&hearts;</span>
                     <span class="decoration-line"></span>
                 </div>
-                <p>Sara & Peter 💍</p>
+                <p data-i18n="footer.coupleNames">Sara & Peter 💍</p>
+                <div class="language-switcher">
+                    <button class="lang-button" data-lang="de">
+                        <span class="flag-icon flag-icon-de"></span>
+                    </button>
+                    <button class="lang-button" data-lang="en">
+                        <span class="flag-icon flag-icon-gb"></span>
+                    </button>
+                    <button class="lang-button" data-lang="pl">
+                        <span class="flag-icon flag-icon-pl"></span>
+                    </button>
+                </div>
                 <div class="back-button" id="back-to-team">
-                    <i class="back-icon">&larr;</i> Zurück zur Tischauswahl
+                    <i class="back-icon">&larr;</i> <span data-i18n="footer.backButton">Zurück zur Tischauswahl</span>
                 </div>
             </footer>
         </div>
@@ -90,14 +113,14 @@
             <div class="winner-content">
                 <div class="winner-badge">
                     <div class="badge-circle"></div>
-                    <h2>BINGO!</h2>
+                    <h2 data-i18n="winner.badge">BINGO!</h2>
                 </div>
-                <p class="winner-congrats">Glückwunsch!</p>
+                <p class="winner-congrats" data-i18n="winner.congrats">Glückwunsch!</p>
                 <div class="winner-team" id="winner-team"></div>
-                <p class="winner-message">Ihr habt gewonnen!</p>
+                <p class="winner-message" data-i18n="winner.message">Ihr habt gewonnen!</p>
                 <div class="trophy-icon">&#127942;</div>
                 <div class="button-container">
-                    <button id="restart-button" class="restart-button">Neues Spiel</button>
+                    <button id="restart-button" class="restart-button" data-i18n="winner.restartButton">Neues Spiel</button>
                     <div class="horn-container">
                         <div id="horn-emoji" class="horn-emoji">📢</div>
                         <div class="pointing-hand">👆</div>
@@ -115,6 +138,8 @@
             }
         });
     </script>
+    
+    <!-- Country Flag Icons sind jetzt lokal in der CSS-Datei definiert -->
     
     <!-- Horn Animation Layer (außerhalb aller anderen Container für maximale Z-Index-Wirkung) -->
     <div id="horn-animation-container" class="horn-animation-container">

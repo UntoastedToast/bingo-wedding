@@ -4,6 +4,7 @@
 import uiController from './uiController.js';
 import bingoGame from './bingoGame.js';
 import helpController from './helpController.js';
+import i18n from './i18n.js';
 
 // Initialize confetti
 function initConfetti() {
@@ -105,6 +106,9 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('Wedding Bingo application initialized');
   initConfetti();
   createShimmerEffect();
+  
+  // Initialize internationalization
+  i18n.init();
   
   // Set up direct URL team access
   const urlParams = new URLSearchParams(window.location.search);

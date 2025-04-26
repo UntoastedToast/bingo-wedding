@@ -2,14 +2,42 @@
  * Data service for fetching and managing bingo card data
  */
 import config from './config.js';
+import i18n from './i18n.js';
 
 class DataService {
   /**
    * Fetch all bingo cards from the JSON file
+   * @param {string} lang - Language code (optional, defaults to current language)
    * @returns {Promise<Array>} Array of bingo cards
    */
-  async fetchBingoCards() {
+  async fetchBingoCards(lang) {
     try {
+      // Use provided language or current language from i18n module
+      const language = lang || i18n.currentLang;
+      
+      // Try to load from the language-specific tasks file
+      try {
+        const response = await fetch(`./json/i18n/tasks/${language}_tasks.json`);
+        if (response.ok) {
+          const data = await response.json();
+          return data.bingoCards || [];
+        }
+      } catch (e) {
+        console.warn(`Could not load tasks for language ${language}, falling back to German`);
+      }
+      
+      // Fallback to German tasks file
+      try {
+        const fallbackResponse = await fetch('./json/i18n/tasks/de_tasks.json');
+        if (fallbackResponse.ok) {
+          const fallbackData = await fallbackResponse.json();
+          return fallbackData.bingoCards || [];
+        }
+      } catch (e) {
+        console.warn('Could not load German tasks, falling back to default');
+      }
+      
+      // Final fallback to the original tasks file
       const response = await fetch(config.tasksJsonPath);
       if (!response.ok) {
         throw new Error(`HTTP error! Status: ${response.status}`);

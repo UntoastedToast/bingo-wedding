@@ -4,6 +4,7 @@
 import config from './config.js';
 import bingoGame from './bingoGame.js';
 import dataService from './dataService.js';
+import i18n from './i18n.js';
 
 class UIController {
   constructor() {
@@ -247,9 +248,11 @@ class UIController {
     if (!this.elements.winnerScreen || !this.elements.winnerTeam) return;
     
     const { teamId } = bingoGame.getGameState();
-    const teamName = `Tisch ${teamId}`;
     
-    this.elements.winnerTeam.textContent = teamName;
+    // Initialer Text setzen, wird später übersetzt
+    this.elements.winnerTeam.setAttribute('data-team-id', teamId);
+    this.updateWinnerTeamText();
+    
     this.elements.winnerScreen.classList.add('active');
     
     // Nur den Air Horn Sound abspielen, ohne Animation
@@ -286,6 +289,57 @@ class UIController {
       this.elements.winnerScreen.classList.remove('active');
     }
   }
+  
+  /**
+   * Aktualisiert den übersetzten Tisch-Text im Gewinner-Screen
+   */
+  updateWinnerTeamText() {
+    // Überprüfen, ob der winner-team-Element existiert
+    const winnerTeamElement = document.getElementById('winner-team');
+    if (!winnerTeamElement) return;
+    
+    // Team-ID aus dem data-Attribut holen
+    const teamId = winnerTeamElement.getAttribute('data-team-id');
+    if (!teamId) return;
+    
+    // Übersetzten Text basierend auf der aktuellen Sprache erzeugen
+    let tableText = '';
+    
+    // Tabellen-Übersetzung basierend auf der aktuellen Sprache
+    switch (i18n.currentLang) {
+      case 'en':
+        tableText = 'Table';
+        break;
+      case 'pl':
+        tableText = 'Stół';
+        break;
+      case 'de':
+      default:
+        tableText = 'Tisch';
+        break;
+    }
+    
+    // Text im Element aktualisieren
+    winnerTeamElement.textContent = `${tableText} ${teamId}`;
+    
+    console.log(`Tisch-Text aktualisiert auf: ${tableText} ${teamId} (Sprache: ${i18n.currentLang})`);
+  }
+  
+  /**
+   * Aktualisiert die Texte im Dialog-Fenster entsprechend der gewählten Sprache
+   */
+  updateDialogTexts() {
+    // Dialog-Buttons mit Übersetzungen aktualisieren
+    const confirmButton = document.getElementById('dialog-confirm');
+    if (confirmButton) {
+      confirmButton.textContent = i18n.t('game.dialogConfirm');
+    }
+    
+    const cancelButton = document.getElementById('dialog-cancel');
+    if (cancelButton) {
+      cancelButton.textContent = i18n.t('game.dialogCancel');
+    }
+  }
 
   /**
    * Update the displayed team name
@@ -295,6 +349,39 @@ class UIController {
     if (!this.elements.teamName) return;
     
     this.elements.teamName.textContent = `${teamId}`;
+  }
+  
+  /**
+   * Refresh the bingo board when language changes
+   * This preserves all marked cells and just updates the text content
+   */
+  refreshBoard() {
+    if (!this.elements.boardContainer) return;
+    
+    const { tasks } = bingoGame;
+    if (!tasks || tasks.length === 0) return;
+    
+    // Aktualisiere die Texte in den Zellen, behalte aber den markierten Status bei
+    document.querySelectorAll('.bingo-cell').forEach(cell => {
+      const index = parseInt(cell.dataset.index);
+      
+      // Skip the free space
+      if (cell.classList.contains('free-space')) return;
+      
+      // Update the cell content with the new language text
+      if (index >= 0 && index < tasks.length) {
+        const contentElement = cell.querySelector('.cell-content');
+        if (contentElement) {
+          contentElement.textContent = tasks[index];
+        }
+      }
+    });
+    
+    // Dialog-Buttons aktualisieren
+    this.updateDialogTexts();
+    
+    // Auch den Tisch-Text im Gewinner-Screen aktualisieren, falls er angezeigt wird
+    this.updateWinnerTeamText();
   }
 
   /**
@@ -387,12 +474,15 @@ class UIController {
     
     const confirmButton = document.createElement('button');
     confirmButton.className = 'dialog-button confirm';
-    confirmButton.textContent = 'Markieren';
     confirmButton.id = 'dialog-confirm';
+    confirmButton.setAttribute('data-i18n', 'game.dialogConfirm'); // Übersetzungsschlüssel hinzufügen
+    confirmButton.textContent = i18n.t('game.dialogConfirm'); // Text mit Übersetzung setzen
     
     const cancelButton = document.createElement('button');
     cancelButton.className = 'dialog-button cancel';
-    cancelButton.textContent = 'Abbrechen';
+    cancelButton.id = 'dialog-cancel';
+    cancelButton.setAttribute('data-i18n', 'game.dialogCancel'); // Übersetzungsschlüssel hinzufügen
+    cancelButton.textContent = i18n.t('game.dialogCancel'); // Text mit Übersetzung setzen
     cancelButton.addEventListener('click', this.hideCellDialog);
     
     buttonContainer.appendChild(cancelButton);

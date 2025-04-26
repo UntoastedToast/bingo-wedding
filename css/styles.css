@@ -12,6 +12,7 @@
 @import url('./modules/winner-screen.css');
 @import url('./modules/footer.css');
 @import url('./modules/help-modal.css');
+@import url('./modules/language-switcher.css');
 
 /* Import animations and effects */
 @import url('./modules/animations.css');

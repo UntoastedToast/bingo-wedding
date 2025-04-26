@@ -1,0 +1,37 @@
+{
+  "app": {
+    "title": "Hochzeits-Bingo",
+    "description": "Ein interaktives Bingo-Spiel für Hochzeitsgäste"
+  },
+  "splash": {
+    "title": "Hochzeits-Bingo",
+    "instruction": "Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!",
+    "teamTitle": "Wähle deinen Tisch",
+    "teamPrompt": "Gib deine Tischnummer ein (1-10)",
+    "teamPlaceholder": "Tischnummer",
+    "errorMessage": "Bitte gib eine Zahl zwischen 1 und 10 ein",
+    "startButton": "Spiel starten",
+    "footnote": "Erstellt mit ♥ für das Brautpaar",
+    "creator": "von Janik"
+  },
+  "game": {
+    "title": "Hochzeits-Bingo",
+    "instruction": "Fotografiere alle Aufgaben in einer Reihe, um zu gewinnen!",
+    "teamLabel": "Tisch:",
+    "progressText": "Markiere alle Aufgaben in einer Reihe!",
+    "dialogTitle": "Aufgabe markieren",
+    "dialogQuestion": "Hast du diese Aufgabe erledigt?",
+    "dialogConfirm": "Markieren",
+    "dialogCancel": "Abbrechen"
+  },
+  "winner": {
+    "badge": "BINGO!",
+    "congrats": "Glückwunsch!",
+    "message": "Ihr habt gewonnen!",
+    "restartButton": "Neues Spiel"
+  },
+  "footer": {
+    "coupleNames": "Sara & Peter 💍",
+    "backButton": "Zurück zur Tischauswahl"
+  }
+}

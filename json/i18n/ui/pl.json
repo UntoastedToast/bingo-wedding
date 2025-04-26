@@ -1,0 +1,37 @@
+{
+  "app": {
+    "title": "Ślubne Bingo",
+    "description": "Interaktywna gra w bingo dla gości weselnych"
+  },
+  "splash": {
+    "title": "Ślubne Bingo",
+    "instruction": "Zrób zdjęcia wszystkich zadań w jednym rzędzie, aby wygrać!",
+    "teamTitle": "Wybierz swój stół",
+    "teamPrompt": "Wprowadź numer swojego stołu (1-10)",
+    "teamPlaceholder": "Numer stołu",
+    "errorMessage": "Proszę wprowadzić liczbę od 1 do 10",
+    "startButton": "Rozpocznij grę",
+    "footnote": "Stworzone z ♥ dla pary młodej",
+    "creator": "przez Janika"
+  },
+  "game": {
+    "title": "Ślubne Bingo",
+    "instruction": "Zrób zdjęcia wszystkich zadań w jednym rzędzie, aby wygrać!",
+    "teamLabel": "Stół:",
+    "progressText": "Zaznacz wszystkie zadania w jednym rzędzie!",
+    "dialogTitle": "Zaznacz zadanie",
+    "dialogQuestion": "Czy wykonałeś to zadanie?",
+    "dialogConfirm": "Zaznacz",
+    "dialogCancel": "Anuluj"
+  },
+  "winner": {
+    "badge": "BINGO!",
+    "congrats": "Gratulacje!",
+    "message": "Wygraliście!",
+    "restartButton": "Nowa gra"
+  },
+  "footer": {
+    "coupleNames": "Sara & Peter 💍",
+    "backButton": "Powrót do wyboru stołu"
+  }
+}

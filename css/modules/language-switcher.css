@@ -1,0 +1,66 @@
+/* 
+ * Language Switcher Styles
+ * Wedding Bingo App
+ */
+
+.language-switcher {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin: 15px 0;
+}
+
+/* Spezielle Styles für den Sprachumschalter in der splash-footnote */
+.splash-footnote .language-switcher {
+  margin-top: 20px;
+  margin-bottom: 5px;
+}
+
+.lang-button {
+  width: 60px;
+  height: 36px;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 1px;
+  cursor: pointer;
+  overflow: hidden;
+  transition: var(--transition);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  opacity: 0.9;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+}
+
+.lang-button:hover {
+  transform: translateY(-2px);
+  opacity: 0.9;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.flag-icon {
+  font-size: 1.7em !important;
+  width: calc(100% - 2px);
+  height: calc(100% - 2px);
+  border-radius: 2px;
+}
+
+.lang-button.active {
+  opacity: 1;
+  transform: scale(1.1);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  padding: 1px;
+}
+
+/* Anpassungen für die national-flag-icons Bibliothek */
+.lang-button .flag-icon {
+  margin: 0;
+  padding: 0;
+  display: block;
+  line-height: normal;
+  vertical-align: middle;
+  background-size: contain !important;
+  background-position: center !important;
+}

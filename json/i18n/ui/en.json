@@ -1,0 +1,37 @@
+{
+  "app": {
+    "title": "Wedding Bingo",
+    "description": "An interactive bingo game for wedding guests"
+  },
+  "splash": {
+    "title": "Wedding Bingo",
+    "instruction": "Take photos of all tasks in a row to win!",
+    "teamTitle": "Choose your table",
+    "teamPrompt": "Enter your table number (1-10)",
+    "teamPlaceholder": "Table number",
+    "errorMessage": "Please enter a number between 1 and 10",
+    "startButton": "Start Game",
+    "footnote": "Created with ♥ for the bridal couple",
+    "creator": "by Janik"
+  },
+  "game": {
+    "title": "Wedding Bingo",
+    "instruction": "Take photos of all tasks in a row to win!",
+    "teamLabel": "Table:",
+    "progressText": "Mark all tasks in a row!",
+    "dialogTitle": "Mark Task",
+    "dialogQuestion": "Have you completed this task?",
+    "dialogConfirm": "Mark",
+    "dialogCancel": "Cancel"
+  },
+  "winner": {
+    "badge": "BINGO!",
+    "congrats": "Congratulations!",
+    "message": "You have won!",
+    "restartButton": "New Game"
+  },
+  "footer": {
+    "coupleNames": "Sara & Peter 💍",
+    "backButton": "Back to table selection"
+  }
+}
