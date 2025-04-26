@@ -24,27 +24,38 @@ function initConfetti() {
 // Function to show confetti when a team wins
 window.showWinningConfetti = function() {
   if (typeof confetti !== 'undefined') {
-    const duration = 5 * 1000;
+    // Detect low-performance devices by checking for mobile or tablet
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    // Adjust parameters based on device performance
+    const duration = isMobile ? 3 * 1000 : 5 * 1000; // Shorter duration on mobile
     const animationEnd = Date.now() + duration;
     const defaults = { 
-      startVelocity: 30, 
-      spread: 360, 
-      ticks: 60, 
+      startVelocity: isMobile ? 20 : 30, // Lower velocity on mobile
+      spread: isMobile ? 250 : 360, // Less spread on mobile
+      ticks: isMobile ? 40 : 60, // Fewer ticks (iterations) on mobile
       zIndex: 9999, // Very high to be on top of everything
       colors: ['#f3a8c7', '#b976af', '#e65c9c', '#ffffff', '#e0c2d7'],
-      disableForReducedMotion: false
+      disableForReducedMotion: true // Respect user's reduced motion preference
     };
     
     // Make confetti particles not block mouse events
-    document.addEventListener('DOMContentLoaded', () => {
+    if (!document.querySelector('style#confetti-style')) {
       const style = document.createElement('style');
+      style.id = 'confetti-style';
       style.textContent = 'canvas.confetti-canvas { pointer-events: none !important; }';
       document.head.appendChild(style);
-    });
+    }
 
     function randomInRange(min, max) {
       return Math.random() * (max - min) + min;
     }
+
+    // Use a longer interval on mobile devices to reduce CPU load
+    const intervalTime = isMobile ? 400 : 300;
+    
+    // Reduce base particle count
+    const baseParticleCount = isMobile ? 25 : 40;
 
     const interval = setInterval(function() {
       const timeLeft = animationEnd - Date.now();
@@ -53,25 +64,33 @@ window.showWinningConfetti = function() {
         return clearInterval(interval);
       }
 
-      const particleCount = 50 * (timeLeft / duration);
+      const particleCount = baseParticleCount * (timeLeft / duration);
       
-      // Create confetti from multiple origins
-      confetti(Object.assign({}, defaults, {
-        particleCount,
-        origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
-      }));
+      // Limit the number of confetti origins on mobile
+      if (!isMobile || Math.random() > 0.3) { // Skip some animations on mobile
+        // Create confetti from left side
+        confetti(Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 }
+        }));
+      }
       
-      confetti(Object.assign({}, defaults, {
-        particleCount,
-        origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
-      }));
+      if (!isMobile || Math.random() > 0.3) { // Skip some animations on mobile
+        // Create confetti from right side
+        confetti(Object.assign({}, defaults, {
+          particleCount,
+          origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 }
+        }));
+      }
       
-      // Add some from the center for a more immersive effect
-      confetti(Object.assign({}, defaults, {
-        particleCount: particleCount * 0.5,
-        origin: { x: 0.5, y: 0.5 }
-      }));
-    }, 250);
+      // Add some from the center only on desktop or occasionally on mobile
+      if (!isMobile || Math.random() > 0.5) {
+        confetti(Object.assign({}, defaults, {
+          particleCount: particleCount * (isMobile ? 0.3 : 0.5),
+          origin: { x: 0.5, y: 0.5 }
+        }));
+      }
+    }, intervalTime);
   }
 };
 

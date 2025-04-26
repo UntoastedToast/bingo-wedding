@@ -39,7 +39,12 @@ class UIController {
     // Initialize the air horn audio
     this.airHornSound = new Audio('assets/sound/air-horn-273892.mp3');
     
-    // Konfetti Cooldown
+    // Initialize the winner music
+    this.winnerMusic = new Audio('assets/music/410578__manuelgraf__game-win-screen-background-music.mp3');
+    this.winnerMusic.volume = 0.8; // Lautstärke auf 80%
+    
+    // Flag for animation
+    this.hornAnimationActive = false;
     this.confettiCooldown = false;
     this.confettiCooldownDuration = 2000; // 2 Sekunden Cooldown
     
@@ -284,6 +289,9 @@ class UIController {
       // Add the listener again
       document.getElementById('horn-emoji').addEventListener('click', this.playAirHorn);
     }
+    
+    // Play the winner music with looping and fade out
+    this.playWinnerMusic();
     
     if (typeof window.showWinningConfetti === 'function') {
       window.showWinningConfetti();
@@ -745,6 +753,9 @@ class UIController {
           soundWaves.forEach(wave => {
             wave.classList.remove('active');
           });
+          
+          // Hier hornAnimationActive zurücksetzen, damit erneute Klicks möglich sind
+          this.hornAnimationActive = false;
         }, 500);
       }, 2000);
     }
@@ -773,6 +784,28 @@ class UIController {
     if (animatedHorn) animatedHorn.classList.remove('active');
     if (soundWaves.length > 0) {
       soundWaves.forEach(wave => wave.classList.remove('active'));
+    }
+  }
+  
+  /**
+   * Spielt die Gewinner-Musik im Hintergrund ab
+   */
+  playWinnerMusic() {
+    // Musik zurücksetzen und abspielen
+    this.winnerMusic.currentTime = 0;
+    this.winnerMusic.play().catch(error => {
+      console.error('Fehler beim Abspielen der Gewinner-Musik:', error);
+    });
+  }
+  
+  /**
+   * Stoppt die Gewinner-Musik
+   */
+  stopWinnerMusic() {
+    // Musik pausieren
+    if (this.winnerMusic) {
+      this.winnerMusic.pause();
+      this.winnerMusic.currentTime = 0;
     }
   }
 }
