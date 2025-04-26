@@ -5,9 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="app.title">Hochzeits-Bingo</title>
     <meta name="description" data-i18n="app.description" content="Ein interaktives Bingo-Spiel für Hochzeitsgäste">
+    
+    <!-- PWA Meta Tags -->
+    <meta name="theme-color" content="#ffc0cb">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="HochzeitsBingo">
+    
+    <!-- PWA Icons -->
+    <link rel="icon" href="icons/favicon.ico">
+    <link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+    <link rel="manifest" href="manifest.json">
+    <link rel="shortcut icon" href="icons/favicon.ico">
+    
+    <!-- Stylesheets -->
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Source+Sans+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Lokale Flag Icons CSS -->
+    <!-- Flag Icons CSS -->
     <link rel="stylesheet" href="css/flag-icons.min.css">
     <!-- Application scripts are loaded with type="module" to enable ES6 imports -->
     <script type="module" src="js/app.js"></script>
@@ -106,9 +120,7 @@
             <div class="winner-background"></div>
             
             <!-- Confetti will appear in between -->
-            
-
-            
+                        
             <!-- Content layer (front) -->
             <div class="winner-content">
                 <div class="winner-badge">
@@ -139,9 +151,9 @@
         });
     </script>
     
-    <!-- Country Flag Icons sind jetzt lokal in der CSS-Datei definiert -->
+    <!-- Country flag icons are now defined locally in the CSS file -->
     
-    <!-- Horn Animation Layer (außerhalb aller anderen Container für maximale Z-Index-Wirkung) -->
+    <!-- Horn animation layer (outside all other containers for maximum Z-index effect) -->
     <div id="horn-animation-container" class="horn-animation-container">
         <div class="horn-center">
             <div id="animated-horn" class="animated-horn">📢</div>
@@ -150,5 +162,19 @@
             <div class="sound-wave wave3"></div>
         </div>
     </div>
+    <!-- Service Worker Registration -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('./service-worker.js')
+                    .then(registration => {
+                        console.log('Service Worker erfolgreich registriert:', registration);
+                    })
+                    .catch(error => {
+                        console.log('Service Worker Registrierung fehlgeschlagen:', error);
+                    });
+            });
+        }
+    </script>
 </body>
 </html>
