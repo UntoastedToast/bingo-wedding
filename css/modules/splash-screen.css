@@ -102,15 +102,7 @@
   font-weight: 500;
 }
 
-.splash-title::before {
-  content: '💍';
-  font-size: 1.8rem;
-  position: absolute;
-  bottom: -38px; /* Vergrößerter Abstand zum Strich */
-  left: 50%;
-  transform: translateX(-50%);
-  z-index: 2; /* Ring über dem Strich platzieren */
-}
+/* Ring-Icon entfernt */
 
 .team-input-container {
   margin: 30px 0 20px;
