@@ -149,7 +149,16 @@ class UIController {
     if (!this.elements.teamInput) return;
     
     const teamValue = this.elements.teamInput.value;
-    if (!this.validateTeamInput(teamValue)) return;
+    
+    // Check if the team input is valid
+    if (!this.validateTeamInput(teamValue)) {
+      // Only show error tooltip if this is not an auto-start
+      if (!isAutoStart) {
+        // Show translated error message in a tooltip
+        this.showTooltip(this.elements.startButton, i18n.t('splash.errorMessage'));
+      }
+      return;
+    }
     
     const teamId = parseInt(teamValue);
     const success = await bingoGame.initializeGame(teamId);
@@ -551,6 +560,90 @@ class UIController {
   }
   
   /**
+   * Display a tooltip/speech bubble near an element with multilingual support
+   * @param {HTMLElement} element - The element to show the tooltip near
+   * @param {string} message - The message to display in the tooltip (already translated)
+   * @param {number} duration - How long to show the tooltip in ms (defaults to 3000ms)
+   */
+  showTooltip(element, message, duration = 3000) {
+    // Remove any existing tooltips and their timeouts
+    this._clearExistingTooltips();
+    
+    // Create tooltip element
+    const tooltip = document.createElement('div');
+    tooltip.className = 'tooltip top';
+    tooltip.textContent = message;
+    tooltip.id = 'bingo-tooltip-' + Date.now();
+    document.body.appendChild(tooltip);
+    
+    // Force layout calculation
+    void tooltip.offsetWidth;
+    
+    // Calculate position relative to button
+    const rect = element.getBoundingClientRect();
+    const viewportHeight = window.innerHeight;
+    const viewportWidth = window.innerWidth;
+    
+    // Get tooltip dimensions after rendering
+    const tooltipWidth = tooltip.offsetWidth;
+    const tooltipHeight = tooltip.offsetHeight;
+    
+    // Calculate centered position above button with safe margins
+    let left = rect.left + (rect.width / 2) - (tooltipWidth / 2);
+    let top = rect.top - tooltipHeight - 15; // Extra margin for visibility
+    
+    // Keep tooltip within viewport boundaries
+    left = Math.min(Math.max(10, left), viewportWidth - tooltipWidth - 10);
+    
+    // If tooltip would be above viewport, place it below the button instead
+    if (top < 10) {
+      top = rect.bottom + 15;
+      tooltip.classList.remove('top');
+      tooltip.classList.add('bottom');
+    }
+    
+    // Apply position
+    tooltip.style.left = `${left}px`;
+    tooltip.style.top = `${top}px`;
+    
+    // Make tooltip visible with animation
+    requestAnimationFrame(() => {
+      tooltip.classList.add('show', 'pulse');
+    });
+    
+    // Store timeout ID for potential early removal
+    this._tooltipTimeoutId = setTimeout(() => {
+      tooltip.classList.remove('show');
+      setTimeout(() => {
+        if (tooltip.parentNode) {
+          tooltip.remove();
+        }
+      }, 300); // Wait for fade-out transition
+    }, duration);
+    
+    return tooltip;
+  }
+  
+  /**
+   * Clear any existing tooltips to prevent duplicates
+   * @private
+   */
+  _clearExistingTooltips() {
+    // Clear existing timeout if any
+    if (this._tooltipTimeoutId) {
+      clearTimeout(this._tooltipTimeoutId);
+      this._tooltipTimeoutId = null;
+    }
+    
+    // Remove any existing tooltips
+    const existingTooltips = document.querySelectorAll('.tooltip');
+    existingTooltips.forEach(tooltip => {
+      tooltip.classList.remove('show');
+      setTimeout(() => tooltip.remove(), 10);
+    });
+  }
+  
+  /**
    * Play just the air horn sound without animation
    */
   playAirHornSound() {
@@ -569,7 +662,10 @@ class UIController {
    * Play the air horn sound effect with animation
    */
   playAirHorn() {
-    // Sound abspielen mit der Basisfunktion
+    // Prevent multiple activations
+    if (this.hornAnimationActive) return;
+    
+    this.hornAnimationActive = true;
     this.playAirHornSound();
       
     // Konfetti nur anzeigen, wenn kein Cooldown aktiv ist

@@ -17,5 +17,8 @@
 /* Import animations and effects */
 @import url('./modules/animations.css');
 
+/* Import tooltip styles */
+@import url('./modules/tooltip.css');
+
 /* Import responsive styles */
 @import url('./modules/responsive.css');

@@ -1,0 +1,91 @@
+/**
+ * Tooltip/Speech Bubble Styles
+ * For displaying validation messages in an elegant way
+ */
+
+.tooltip {
+  position: fixed;
+  background-color: var(--accent-color);
+  color: white;
+  padding: 12px 15px;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  max-width: 280px;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transform: translateY(10px);
+  transition: opacity 0.3s, transform 0.3s;
+  z-index: 9999; /* Höherer z-index */
+  pointer-events: none;
+  text-align: center;
+  font-weight: 500; /* Etwas fetter */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.tooltip.show {
+  opacity: 1;
+  transform: translateY(0);
+  animation: tooltipAppear 0.3s forwards;
+}
+
+@keyframes tooltipAppear {
+  0% {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.05) translateY(-2px);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Speech bubble arrow */
+.tooltip::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: var(--accent-color) transparent transparent;
+}
+
+/* Different positions for the tooltip */
+.tooltip.top::after {
+  bottom: -10px;
+  top: auto;
+  border-width: 10px 10px 0;
+  border-color: var(--accent-color) transparent transparent;
+}
+
+.tooltip.bottom::after {
+  top: -10px;
+  bottom: auto;
+  border-width: 0 10px 10px;
+  border-color: transparent transparent var(--accent-color);
+}
+
+/* Add animation for attention */
+.tooltip.pulse {
+  animation: tooltip-pulse 2s infinite;
+}
+
+@keyframes tooltip-pulse {
+  0% {
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 3px 20px rgba(230, 92, 156, 0.5);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 3px 15px rgba(0, 0, 0, 0.3);
+    transform: scale(1);
+  }
+}
