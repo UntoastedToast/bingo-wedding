@@ -11,9 +11,15 @@ class HelpController {
     this.closeButtonId = 'close-help';
     this.initialized = false;
     
+    // Referenz auf updateHelpContent-Methode binden
+    this.updateHelpContentBound = this.updateHelpContent.bind(this);
+    
     // Create the help button and modal elements
     this.createHelpElements();
     this.setupEventListeners();
+    
+    // Auf Sprachänderungen hören
+    document.addEventListener('languageChanged', this.updateHelpContentBound);
   }
 
   /**
@@ -124,9 +130,41 @@ class HelpController {
     `;
     
     // Footer
-    const footer = document.createElement('p');
-    footer.className = 'help-footer';
-    footer.textContent = i18n.t('help.footer');
+    const footer = document.createElement('div');
+    footer.className = 'help-footer-container';
+    
+    // Footer text
+    const footerText = document.createElement('p');
+    footerText.className = 'help-footer';
+    footerText.textContent = i18n.t('help.footer');
+    footer.appendChild(footerText);
+    
+    // Language switcher kopieren
+    const originalSwitcher = document.querySelector('.language-switcher');
+    if (originalSwitcher) {
+      const langSwitcher = originalSwitcher.cloneNode(true);
+      
+      // Vor dem Klonen hinzugefügte Event-Listener werden nicht mitkopiert,
+      // daher müssen wir sie neu hinzufügen
+      langSwitcher.querySelectorAll('.lang-button').forEach(button => {
+        const langCode = button.getAttribute('data-lang');
+        if (langCode) {
+          // Wir entfernen zuerst alle vorhandenen Event-Listener (falls vorhanden)
+          const newButton = button.cloneNode(true);
+          button.parentNode.replaceChild(newButton, button);
+          
+          // Neuen Event-Listener hinzufügen - Hilfefenster bleibt offen
+          newButton.addEventListener('click', () => {
+            i18n.setLanguage(langCode);
+          });
+        }
+      });
+      
+      footer.appendChild(langSwitcher);
+    } else {
+      console.warn('Konnte Language Switcher nicht finden und kopieren');
+    }
+    
     content.appendChild(footer);
     
     // Assemble modal
@@ -253,4 +291,9 @@ class HelpController {
 
 // Create and export a singleton instance
 const helpController = new HelpController();
+// Ressourcen freigeben, wenn Klasse zerstört wird
+window.addEventListener('unload', () => {
+  document.removeEventListener('languageChanged', helpController.updateHelpContentBound);
+});
+
 export default helpController;

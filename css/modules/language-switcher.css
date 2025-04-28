@@ -17,11 +17,11 @@
 }
 
 .lang-button {
-  width: 60px;
-  height: 36px;
-  border: 1px solid #e0e0e0;
-  border-radius: 4px;
-  padding: 1px;
+  width: 48px;
+  height: 48px;
+  border: 2px solid transparent;
+  border-radius: 50%;
+  padding: 0;
   cursor: pointer;
   overflow: hidden;
   transition: var(--transition);
@@ -31,27 +31,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: white;
+  background-color: var(--light-color);
 }
 
 .lang-button:hover {
   transform: translateY(-2px);
   opacity: 0.9;
+  border-color: var(--primary-color);
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
 .flag-icon {
   font-size: 1.7em !important;
-  width: calc(100% - 2px);
-  height: calc(100% - 2px);
-  border-radius: 2px;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background-size: cover !important;
+  background-position: center !important;
 }
 
 .lang-button.active {
   opacity: 1;
   transform: scale(1.1);
+  border-color: var(--primary-color);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
-  padding: 1px;
+  padding: 0;
 }
 
 /* Anpassungen für die national-flag-icons Bibliothek */
@@ -61,6 +65,4 @@
   display: block;
   line-height: normal;
   vertical-align: middle;
-  background-size: contain !important;
-  background-position: center !important;
 }

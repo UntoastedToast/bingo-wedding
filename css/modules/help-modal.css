@@ -125,12 +125,22 @@
   line-height: 1.5;
 }
 
-.help-footer {
+.help-footer-container {
   margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 15px;
+}
+
+.help-footer {
   font-style: italic;
   text-align: center;
   color: var(--primary-color);
+  margin: 0;
 }
+
+/* Keine speziellen Anpassungen für den Language Switcher im Hilfefenster */
 
 /* Responsive adjustments */
 @media (max-width: 480px) {

@@ -19,6 +19,9 @@ const i18n = {
   // Translations storage
   translations: {},
   
+  // Listeners für Sprachänderungen
+  languageChangeListeners: [],
+  
   /**
    * Initialize the internationalization module
    * Detects browser language and loads appropriate translations
@@ -127,7 +130,48 @@ const i18n = {
     // Reload game content if we're in the game view
     this.reloadGameContent();
     
+    // Benachrichtige alle registrierten Listener über die Sprachänderung
+    this.notifyLanguageChangeListeners();
+    
+    // Event auslösen, damit andere Module über die Sprachänderung informiert werden
+    const event = new CustomEvent('languageChanged', { detail: { language: lang } });
+    document.dispatchEvent(event);
+    
     return this.translations;
+  },
+  
+  /**
+   * Fügt einen Listener für Sprachänderungen hinzu
+   * @param {Function} callback - Funktion, die bei Sprachänderung aufgerufen wird
+   */
+  addLanguageChangeListener: function(callback) {
+    if (typeof callback === 'function' && !this.languageChangeListeners.includes(callback)) {
+      this.languageChangeListeners.push(callback);
+    }
+  },
+  
+  /**
+   * Entfernt einen Listener für Sprachänderungen
+   * @param {Function} callback - Die zu entfernende Callback-Funktion
+   */
+  removeLanguageChangeListener: function(callback) {
+    const index = this.languageChangeListeners.indexOf(callback);
+    if (index !== -1) {
+      this.languageChangeListeners.splice(index, 1);
+    }
+  },
+  
+  /**
+   * Benachrichtigt alle registrierten Listener über eine Sprachänderung
+   */
+  notifyLanguageChangeListeners: function() {
+    this.languageChangeListeners.forEach(callback => {
+      try {
+        callback(this.currentLang);
+      } catch (error) {
+        console.error('Fehler beim Ausführen des Sprachänderungs-Listeners:', error);
+      }
+    });
   },
   
   /**
