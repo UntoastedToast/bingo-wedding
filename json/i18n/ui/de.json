@@ -31,7 +31,7 @@
     "restartButton": "Neues Spiel"
   },
   "footer": {
-    "coupleNames": "Sara & Peter 💍",
+    "coupleNames": "Sara & Peter ",
     "backButton": "Zurück zur Tischauswahl"
   },
   "help": {
@@ -54,6 +54,8 @@
       "Du kannst jederzeit zur Tischauswahl zurückkehren.",
       "Teile deine Fotos mit dem Brautpaar nach der Hochzeit!"
     ],
+    "freeSpaceDescription": "Das mittlere Feld ist ein Freifeld und automatisch markiert.",
+    "freeSpaceConfirm": "Okay, verstanden!",
     "footer": "Viel Spaß beim Spielen und Fotografieren!"
   }
 }

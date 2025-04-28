@@ -31,7 +31,7 @@
     "restartButton": "New Game"
   },
   "footer": {
-    "coupleNames": "Sara & Peter 💍",
+    "coupleNames": "Sara & Peter ",
     "backButton": "Back to table selection"
   },
   "help": {
@@ -54,6 +54,8 @@
       "You can return to the table selection at any time.",
       "Share your photos with the bridal couple after the wedding!"
     ],
+    "freeSpaceDescription": "The middle cell is a free space and automatically marked.",
+    "freeSpaceConfirm": "Okay, got it!",
     "footer": "Have fun playing and taking photos!"
   }
 }

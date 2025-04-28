@@ -31,7 +31,7 @@
     "restartButton": "Nowa gra"
   },
   "footer": {
-    "coupleNames": "Sara & Peter 💍",
+    "coupleNames": "Sara & Peter ",
     "backButton": "Powrót do wyboru stołu"
   },
   "help": {
@@ -54,6 +54,8 @@
       "Możesz wrócić do wyboru stołu w dowolnym momencie.",
       "Podziel się swoimi zdjęciami z parą młodą po weselu!"
     ],
+    "freeSpaceDescription": "Środkowe pole jest polem wolnym i automatycznie zaznaczonym.",
+    "freeSpaceConfirm": "OK, rozumiem!",
     "footer": "Dobrej zabawy podczas gry i robienia zdjęć!"
   }
 }

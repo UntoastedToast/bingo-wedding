@@ -234,6 +234,14 @@ class UIController {
         }
       });
     });
+    
+    // Add click handler for free-space cell to show description modal
+    document.querySelectorAll('.bingo-cell.free-space').forEach(cell => {
+      const idx = parseInt(cell.dataset.index);
+      // Use free space description from translations
+      const desc = i18n.t('help.freeSpaceDescription');
+      cell.addEventListener('click', () => this.showCellDialog(desc, idx));
+    });
   }
 
   /**
@@ -529,11 +537,16 @@ class UIController {
     const dialogOverlay = document.getElementById('cell-dialog-overlay');
     const dialogContent = document.getElementById('dialog-content');
     const confirmButton = document.getElementById('dialog-confirm');
-    
+    const cancelButton = document.getElementById('dialog-cancel');
     if (!dialogOverlay || !dialogContent || !confirmButton) return;
     
     // Set dialog content
-    dialogContent.textContent = text;
+    // Reload text from i18n for free space to ensure fresh translation
+    if (index === config.freeSpace.position) {
+      dialogContent.textContent = i18n.t('help.freeSpaceDescription');
+    } else {
+      dialogContent.textContent = text;
+    }
     
     // Update confirm button with the cell index
     confirmButton.dataset.index = index;
@@ -541,11 +554,21 @@ class UIController {
     // Remove old event listener to avoid duplicates
     confirmButton.replaceWith(confirmButton.cloneNode(true));
     
-    // Add new event listener
-    document.getElementById('dialog-confirm').addEventListener('click', () => {
-      this.onCellClick(index);
-      this.hideCellDialog();
-    });
+    // Configure buttons for free-space cell
+    if (index === config.freeSpace.position) {
+      cancelButton.style.display = 'none';
+      const okBtn = document.getElementById('dialog-confirm');
+      okBtn.textContent = i18n.t('help.freeSpaceConfirm');
+      okBtn.addEventListener('click', this.hideCellDialog);
+    } else {
+      cancelButton.style.display = '';
+      const newConfirm = document.getElementById('dialog-confirm');
+      newConfirm.textContent = i18n.t('game.dialogConfirm');
+      newConfirm.addEventListener('click', () => {
+        this.onCellClick(index);
+        this.hideCellDialog();
+      });
+    }
     
     // Show dialog
     dialogOverlay.classList.add('active');
