@@ -2,7 +2,7 @@
  * Bingo game logic module
  */
 import config from './config.js';
-import dataService from './dataService.js';
+import dataService from './storage.js';
 
 class BingoGame {
   constructor() {

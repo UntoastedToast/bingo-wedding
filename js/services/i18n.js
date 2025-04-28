@@ -2,8 +2,8 @@
  * Internationalization module for the Wedding Bingo App
  * Handles language detection, switching and text loading
  */
-import bingoGame from './bingoGame.js';
-import uiController from './uiController.js';
+import bingoGame from '../core/game.js';
+import uiController from '../controllers/uiController.js';
 
 const i18n = {
   // Current language code

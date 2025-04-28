@@ -2,7 +2,7 @@
  * Data service for fetching and managing bingo card data
  */
 import config from './config.js';
-import i18n from './i18n.js';
+import i18n from '../services/i18n.js';
 
 class DataService {
   /**

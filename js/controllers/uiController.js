@@ -1,10 +1,10 @@
 /**
  * UI Controller for the Bingo Game
  */
-import config from './config.js';
-import bingoGame from './bingoGame.js';
-import dataService from './dataService.js';
-import i18n from './i18n.js';
+import config from '../core/config.js';
+import bingoGame from '../core/game.js';
+import dataService from '../core/storage.js';
+import i18n from '../services/i18n.js';
 
 class UIController {
   constructor() {

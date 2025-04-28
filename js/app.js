@@ -1,10 +1,10 @@
 /**
  * Main application entry point
  */
-import uiController from './uiController.js';
-import bingoGame from './bingoGame.js';
-import helpController from './helpController.js';
-import i18n from './i18n.js';
+import uiController from './controllers/uiController.js';
+import bingoGame from './core/game.js';
+import helpController from './controllers/helpController.js';
+import i18n from './services/i18n.js';
 
 // Initialize confetti
 function initConfetti() {
