@@ -55,6 +55,10 @@
     padding: 8px;
   }
   
+  .bingo-cell.free-space::before {
+    font-size: 2rem;
+  }
+  
   .winner-content h2 {
     font-size: 3rem;
   }
