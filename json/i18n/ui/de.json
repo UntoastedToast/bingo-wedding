@@ -33,5 +33,27 @@
   "footer": {
     "coupleNames": "Sara & Peter 💍",
     "backButton": "Zurück zur Tischauswahl"
+  },
+  "help": {
+    "buttonLabel": "Hilfe anzeigen",
+    "closeLabel": "Hilfe schließen",
+    "title": "Spielanleitung",
+    "howToPlayTitle": "So spielst du Hochzeits-Bingo:",
+    "howToPlaySteps": [
+      "Wähle deine Tischnummer (1-10) auf dem Startbildschirm.",
+      "Jeder Tisch erhält eine einzigartige Bingo-Karte mit verschiedenen Aufgaben.",
+      "Fotografiere die auf deiner Karte beschriebenen Situationen während der Hochzeit.",
+      "Tippe auf ein Feld, um es zu markieren, wenn du die Aufgabe erledigt hast.",
+      "Ziel ist es, eine komplette Reihe (horizontal, vertikal oder diagonal) zu fotografieren.",
+      "Sobald du eine Reihe vollständig markiert hast, hast du gewonnen!"
+    ],
+    "tipsTitle": "Tipps:",
+    "tipsList": [
+      "Das mittlere Feld ist ein Freifeld und automatisch markiert.",
+      "Dein Spielstand wird automatisch gespeichert.",
+      "Du kannst jederzeit zur Tischauswahl zurückkehren.",
+      "Teile deine Fotos mit dem Brautpaar nach der Hochzeit!"
+    ],
+    "footer": "Viel Spaß beim Spielen und Fotografieren!"
   }
 }

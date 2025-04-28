@@ -2,6 +2,7 @@
  * Help Controller for the Bingo Game
  * Provides instructions and guidance for players
  */
+import i18n from '../services/i18n.js';
 
 class HelpController {
   constructor() {
@@ -47,8 +48,8 @@ class HelpController {
     helpButton.id = id;
     helpButton.className = 'help-button';
     helpButton.innerHTML = '?';
-    helpButton.setAttribute('aria-label', 'Hilfe anzeigen');
-    helpButton.setAttribute('title', 'Hilfe anzeigen');
+    helpButton.setAttribute('aria-label', i18n.t('help.buttonLabel'));
+    helpButton.setAttribute('title', i18n.t('help.buttonLabel'));
     
     // Add to container
     if (containerId === 'splash-screen') {
@@ -86,36 +87,47 @@ class HelpController {
     closeButton.id = this.closeButtonId;
     closeButton.className = 'close-help';
     closeButton.innerHTML = '&times;';
-    closeButton.setAttribute('aria-label', 'Hilfe schließen');
+    closeButton.setAttribute('aria-label', i18n.t('help.closeLabel'));
     
     // Title
     const title = document.createElement('h2');
-    title.textContent = 'Spielanleitung';
+    title.textContent = i18n.t('help.title');
     
     // Content
     const content = document.createElement('div');
     content.className = 'help-content';
+    
+    // How to play title
+    const howToPlayTitle = document.createElement('h3');
+    howToPlayTitle.textContent = i18n.t('help.howToPlayTitle');
+    content.appendChild(howToPlayTitle);
+    
+    // Erstelle HTML mit Inline-Text statt dynamischen Listen
     content.innerHTML = `
-      <h3>So spielst du Hochzeits-Bingo:</h3>
+      <h3>${i18n.t('help.howToPlayTitle')}</h3>
       <ol>
-        <li>Wähle deine Tischnummer (1-10) auf dem Startbildschirm.</li>
-        <li>Jeder Tisch erhält eine einzigartige Bingo-Karte mit verschiedenen Aufgaben.</li>
-        <li>Fotografiere die auf deiner Karte beschriebenen Situationen während der Hochzeit.</li>
-        <li>Tippe auf ein Feld, um es zu markieren, wenn du die Aufgabe erledigt hast.</li>
-        <li>Ziel ist es, eine komplette Reihe (horizontal, vertikal oder diagonal) zu fotografieren.</li>
-        <li>Sobald du eine Reihe vollständig markiert hast, hast du gewonnen!</li>
+        <li>${i18n.t('help.howToPlaySteps.0')}</li>
+        <li>${i18n.t('help.howToPlaySteps.1')}</li>
+        <li>${i18n.t('help.howToPlaySteps.2')}</li>
+        <li>${i18n.t('help.howToPlaySteps.3')}</li>
+        <li>${i18n.t('help.howToPlaySteps.4')}</li>
+        <li>${i18n.t('help.howToPlaySteps.5')}</li>
       </ol>
       
-      <h3>Tipps:</h3>
+      <h3>${i18n.t('help.tipsTitle')}</h3>
       <ul>
-        <li>Das mittlere Feld ist ein Freifeld und automatisch markiert.</li>
-        <li>Dein Spielstand wird automatisch gespeichert.</li>
-        <li>Du kannst jederzeit zur Tischauswahl zurückkehren.</li>
-        <li>Teile deine Fotos mit dem Brautpaar nach der Hochzeit!</li>
+        <li>${i18n.t('help.tipsList.0')}</li>
+        <li>${i18n.t('help.tipsList.1')}</li>
+        <li>${i18n.t('help.tipsList.2')}</li>
+        <li>${i18n.t('help.tipsList.3')}</li>
       </ul>
-      
-      <p class="help-footer">Viel Spaß beim Spielen und Fotografieren!</p>
     `;
+    
+    // Footer
+    const footer = document.createElement('p');
+    footer.className = 'help-footer';
+    footer.textContent = i18n.t('help.footer');
+    content.appendChild(footer);
     
     // Assemble modal
     modalContent.appendChild(closeButton);
@@ -161,6 +173,9 @@ class HelpController {
    * Show the help modal
    */
   showHelpModal() {
+    // Update text content with current language before showing
+    this.updateHelpContent();
+    
     const modal = document.getElementById(this.helpModalId);
     if (modal) {
       modal.classList.add('active');
@@ -180,6 +195,59 @@ class HelpController {
     if (modal) {
       modal.classList.remove('active');
     }
+  }
+  
+  /**
+   * Update help content with current language translations
+   */
+  updateHelpContent() {
+    const modal = document.getElementById(this.helpModalId);
+    if (!modal) return;
+    
+    // Update title
+    const title = modal.querySelector('h2');
+    if (title) title.textContent = i18n.t('help.title');
+    
+    // Update how to play title
+    const howToPlayTitle = modal.querySelector('.help-content > h3:first-of-type');
+    if (howToPlayTitle) howToPlayTitle.textContent = i18n.t('help.howToPlayTitle');
+    
+    // Update steps (einzeln zugreifen)
+    const olItems = modal.querySelectorAll('.help-content > ol > li');
+    if (olItems[0]) olItems[0].textContent = i18n.t('help.howToPlaySteps.0');
+    if (olItems[1]) olItems[1].textContent = i18n.t('help.howToPlaySteps.1');
+    if (olItems[2]) olItems[2].textContent = i18n.t('help.howToPlaySteps.2');
+    if (olItems[3]) olItems[3].textContent = i18n.t('help.howToPlaySteps.3');
+    if (olItems[4]) olItems[4].textContent = i18n.t('help.howToPlaySteps.4');
+    if (olItems[5]) olItems[5].textContent = i18n.t('help.howToPlaySteps.5');
+    
+    // Update tips title
+    const tipsTitle = modal.querySelector('.help-content > h3:nth-of-type(2)');
+    if (tipsTitle) tipsTitle.textContent = i18n.t('help.tipsTitle');
+    
+    // Update tips (einzeln zugreifen)
+    const ulItems = modal.querySelectorAll('.help-content > ul > li');
+    if (ulItems[0]) ulItems[0].textContent = i18n.t('help.tipsList.0');
+    if (ulItems[1]) ulItems[1].textContent = i18n.t('help.tipsList.1');
+    if (ulItems[2]) ulItems[2].textContent = i18n.t('help.tipsList.2');
+    if (ulItems[3]) ulItems[3].textContent = i18n.t('help.tipsList.3');
+    
+    // Update footer
+    const footer = modal.querySelector('.help-footer');
+    if (footer) footer.textContent = i18n.t('help.footer');
+    
+    // Update button labels
+    const closeButton = document.getElementById(this.closeButtonId);
+    if (closeButton) {
+      closeButton.setAttribute('aria-label', i18n.t('help.closeLabel'));
+      closeButton.title = i18n.t('help.closeLabel');
+    }
+    
+    // Update help buttons labels
+    document.querySelectorAll('.help-button').forEach(button => {
+      button.setAttribute('aria-label', i18n.t('help.buttonLabel'));
+      button.title = i18n.t('help.buttonLabel');
+    });
   }
 }
 

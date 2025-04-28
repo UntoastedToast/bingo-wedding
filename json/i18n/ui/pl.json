@@ -33,5 +33,27 @@
   "footer": {
     "coupleNames": "Sara & Peter 💍",
     "backButton": "Powrót do wyboru stołu"
+  },
+  "help": {
+    "buttonLabel": "Pokaż pomoc",
+    "closeLabel": "Zamknij pomoc",
+    "title": "Instrukcje gry",
+    "howToPlayTitle": "Jak grać w Ślubne Bingo:",
+    "howToPlaySteps": [
+      "Wybierz numer swojego stołu (1-10) na ekranie startowym.",
+      "Każdy stół otrzymuje unikatową kartę bingo z różnymi zadaniami.",
+      "Zrób zdjęcia sytuacji opisanych na twojej karcie podczas wesela.",
+      "Dotknij komórki, aby ją zaznaczyć, gdy wykonałeś zadanie.",
+      "Celem jest sfotografowanie kompletnego rzędu (poziomo, pionowo lub po przekątnej).",
+      "Gdy zaznaczysz kompletny rząd, wygrywasz!"
+    ],
+    "tipsTitle": "Wskazówki:",
+    "tipsList": [
+      "Środkowe pole jest polem wolnym i automatycznie zaznaczonym.",
+      "Twój postęp w grze jest automatycznie zapisywany.",
+      "Możesz wrócić do wyboru stołu w dowolnym momencie.",
+      "Podziel się swoimi zdjęciami z parą młodą po weselu!"
+    ],
+    "footer": "Dobrej zabawy podczas gry i robienia zdjęć!"
   }
 }

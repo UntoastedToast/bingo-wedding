@@ -33,5 +33,27 @@
   "footer": {
     "coupleNames": "Sara & Peter 💍",
     "backButton": "Back to table selection"
+  },
+  "help": {
+    "buttonLabel": "Show Help",
+    "closeLabel": "Close Help",
+    "title": "Game Instructions",
+    "howToPlayTitle": "How to play Wedding Bingo:",
+    "howToPlaySteps": [
+      "Choose your table number (1-10) on the start screen.",
+      "Each table receives a unique bingo card with different tasks.",
+      "Take photos of the situations described on your card during the wedding.",
+      "Tap on a cell to mark it when you have completed the task.",
+      "The goal is to photograph a complete row (horizontal, vertical, or diagonal).",
+      "Once you have marked a complete row, you win!"
+    ],
+    "tipsTitle": "Tips:",
+    "tipsList": [
+      "The middle cell is a free space and automatically marked.",
+      "Your game progress is automatically saved.",
+      "You can return to the table selection at any time.",
+      "Share your photos with the bridal couple after the wedding!"
+    ],
+    "footer": "Have fun playing and taking photos!"
   }
 }
